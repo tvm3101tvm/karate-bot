@@ -1,0 +1,23 @@
+[
+  {
+    "id": "test_1",
+    "question": "Как называется эта стойка?",
+    "gif_url": "https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53906a/",
+    "correct_answer": "Дзенкуцу дачи",
+    "options": ["Дзенкуцу дачи", "Киба дачи", "Кокуцу дачи", "Не знаю"]
+  },
+  {
+    "id": "test_2",
+    "question": "Какой это блок?",
+    "gif_url": "https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53906b/",
+    "correct_answer": "Аге-уке",
+    "options": ["Аге-уке", "Гедан барай", "Учи-уке", "Сото-уке"]
+  },
+  {
+    "id": "test_3",
+    "question": "Какой это удар ногой?",
+    "gif_url": "https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53906c/",
+    "correct_answer": "Мае-гери",
+    "options": ["Мае-гери", "Маваши-гери", "Йоко-гери", "Урамаваши-гери"]
+  }
+]

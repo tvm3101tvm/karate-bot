@@ -1,0 +1,44 @@
+[
+  {
+    "id": "kihon_1",
+    "name": "Дзенкуцу дачи - ой-цуки",
+    "description": "Стойка с прямым ударом",
+    "rutube_url": "https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905s/"
+  },
+  {
+    "id": "kihon_2",
+    "name": "Дзенкуцу дачи - аге-уке",
+    "description": "Стойка с верхним блоком",
+    "rutube_url": "https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905t/"
+  },
+  {
+    "id": "kihon_3",
+    "name": "Дзенкуцу дачи - сото-уке",
+    "description": "Стойка с блоком снаружи внутрь",
+    "rutube_url": "https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905u/"
+  },
+  {
+    "id": "kihon_4",
+    "name": "Дзенкуцу дачи - шуто-уке",
+    "description": "Стойка с блоком ребром ладони",
+    "rutube_url": "https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905v/"
+  },
+  {
+    "id": "kihon_5",
+    "name": "Дзенкуцу дачи - мае-гери",
+    "description": "Стойка с прямым ударом ногой",
+    "rutube_url": "https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905w/"
+  },
+  {
+    "id": "kihon_6",
+    "name": "Киба-дачи - ёко-гери кэаге",
+    "description": "Стойка с восходящим ударом",
+    "rutube_url": "https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905x/"
+  },
+  {
+    "id": "kihon_7",
+    "name": "Киба-дачи - ёко-гери кэкоми",
+    "description": "Стойка с проникающим ударом",
+    "rutube_url": "https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905y/"
+  }
+]

@@ -1,0 +1,20 @@
+[
+  {
+    "id": "zenkutsu_dachi",
+    "name": "Дзенкуцу дачи",
+    "description": "Фронтальная стойка. Передняя нога согнута, задняя прямая.",
+    "rutube_url": "https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905e/"
+  },
+  {
+    "id": "kiba_dachi",
+    "name": "Киба дачи",
+    "description": "Стойка 'всадника'. Ноги широко, колени согнуты.",
+    "rutube_url": "https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905f/"
+  },
+  {
+    "id": "kokutsu_dachi",
+    "name": "Кокуцу дачи",
+    "description": "Задняя стойка. 70% веса на задней ноге.",
+    "rutube_url": "https://rutube.ru/shorts/a491fa206be7f0c22c42f8fc77f92ccb/"
+  }
+]

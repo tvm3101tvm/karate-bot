@@ -1,0 +1,14 @@
+[
+  {
+    "id": "oi_zuki",
+    "name": "Ой-цуки",
+    "description": "Прямой удар рукой с одноименной ногой.",
+    "rutube_url": "https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905m/"
+  },
+  {
+    "id": "gyaku_zuki",
+    "name": "Гьяку-цуки",
+    "description": "Прямой удар рукой с разноименной ногой.",
+    "rutube_url": "https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905n/"
+  }
+]
