@@ -11,13 +11,13 @@
     "name": "Киба дачи",
     "description": "Стойка 'всадника'. Ноги широко расставлены в стороны, стопы параллельны. Колени согнуты так, чтобы бедра были почти параллельны полу. Спина прямая.",
     "rutube_url": "https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905f/",
-    "photo_url": "https://i.ibb.co/23PWWkh6/IMG-0575.jpg"
+    "photo_url": "[img]https://i.ibb.co/23PWWkh6/IMG-0575.jpg[/img]"
   },
   {
     "id": "kokutsu_dachi",
     "name": "Кокуцу дачи",
     "description": "Задняя стойка. 70% веса на задней ноге, передняя нога почти прямая, стопа направлена вперед.",
-    "rutube_url": "https://rutube.ru/shorts/embed/a491fa206be7f0c22c42f8fc77f92ccb/",
+    "video_url": " https://files.catbox.moe/bjktno.mp4",
     "photo_url": "https://i.ibb.co/xKNKrxsw/IMG-0573.jpg"
   }
 ]
