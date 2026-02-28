@@ -2,43 +2,50 @@
   {
     "id": "kihon_1",
     "name": "Дзенкуцу дачи - ой-цуки",
-    "description": "Стойка с прямым ударом",
-    "rutube_url": "https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905s/"
+    "description": "Из фронтальной стойки Дзенкуцу дачи выполняется прямой удар ой-цуки. Вес тела распределен правильно, бедра развернуты.",
+    "rutube_url": "https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905s/",
+    "photo_url": "https://example.com/images/kihon_1.jpg"
   },
   {
     "id": "kihon_2",
     "name": "Дзенкуцу дачи - аге-уке",
-    "description": "Стойка с верхним блоком",
-    "rutube_url": "https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905t/"
+    "description": "Из стойки Дзенкуцу дачи выполняется верхний блок аге-уке. Рука поднимается, защищая голову.",
+    "rutube_url": "https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905t/",
+    "photo_url": "https://example.com/images/kihon_2.jpg"
   },
   {
     "id": "kihon_3",
     "name": "Дзенкуцу дачи - сото-уке",
-    "description": "Стойка с блоком снаружи внутрь",
-    "rutube_url": "https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905u/"
+    "description": "Из стойки Дзенкуцу дачи выполняется блок снаружи внутрь (сото-уке). Рука движется от внешней стороны к центру.",
+    "rutube_url": "https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905u/",
+    "photo_url": "https://example.com/images/kihon_3.jpg"
   },
   {
     "id": "kihon_4",
     "name": "Дзенкуцу дачи - шуто-уке",
-    "description": "Стойка с блоком ребром ладони",
-    "rutube_url": "https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905v/"
+    "description": "Из стойки Дзенкуцу дачи выполняется блок ребром ладони (шуто-уке). Рука открыта, блок выполняется внешним ребром.",
+    "rutube_url": "https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905v/",
+    "photo_url": "https://example.com/images/kihon_4.jpg"
   },
   {
     "id": "kihon_5",
     "name": "Дзенкуцу дачи - мае-гери",
-    "description": "Стойка с прямым ударом ногой",
-    "rutube_url": "https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905w/"
+    "description": "Из стойки Дзенкуцу дачи выполняется прямой удар ногой мае-гери. Передняя нога поднимается и резко выпрямляется.",
+    "rutube_url": "https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905w/",
+    "photo_url": "https://example.com/images/kihon_5.jpg"
   },
   {
     "id": "kihon_6",
     "name": "Киба-дачи - ёко-гери кэаге",
-    "description": "Стойка с восходящим ударом",
-    "rutube_url": "https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905x/"
+    "description": "Из стойки Киба-дачи выполняется восходящий удар ногой в сторону (ёко-гери кэаге). Удар наносится ребром стопы снизу вверх.",
+    "rutube_url": "https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905x/",
+    "photo_url": "https://example.com/images/kihon_6.jpg"
   },
   {
     "id": "kihon_7",
     "name": "Киба-дачи - ёко-гери кэкоми",
-    "description": "Стойка с проникающим ударом",
-    "rutube_url": "https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905y/"
+    "description": "Из стойки Киба-дачи выполняется проникающий удар ногой в сторону (ёко-гери кэкоми). Удар наносится ребром стопы с толчком.",
+    "rutube_url": "https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905y/",
+    "photo_url": "https://example.com/images/kihon_7.jpg"
   }
 ]

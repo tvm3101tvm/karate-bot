@@ -2,19 +2,22 @@
   {
     "id": "zenkutsu_dachi",
     "name": "Дзенкуцу дачи",
-    "description": "Фронтальная стойка. Передняя нога согнута, задняя прямая.",
-    "rutube_url": "https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905e/"
+    "description": "Фронтальная стойка. Передняя нога согнута, голень перпендикулярна полу. Задняя нога прямая, стопа развернута на 45 градусов. Центр тяжести ниже, чем в обычной стойке.",
+    "rutube_url": "https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905e/",
+    "photo_url": "https://example.com/images/zenkutsu_dachi.jpg"
   },
   {
     "id": "kiba_dachi",
     "name": "Киба дачи",
-    "description": "Стойка 'всадника'. Ноги широко, колени согнуты.",
-    "rutube_url": "https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905f/"
+    "description": "Стойка 'всадника'. Ноги широко расставлены в стороны, стопы параллельны. Колени согнуты так, чтобы бедра были почти параллельны полу. Спина прямая.",
+    "rutube_url": "https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905f/",
+    "photo_url": "https://i.ibb.co/23PWWkh6/IMG-0575.jpg"
   },
   {
     "id": "kokutsu_dachi",
     "name": "Кокуцу дачи",
-    "description": "Задняя стойка. 70% веса на задней ноге.",
-    "rutube_url": "https://rutube.ru/shorts/a491fa206be7f0c22c42f8fc77f92ccb/"
+    "description": "Задняя стойка. 70% веса на задней ноге, передняя нога почти прямая, стопа направлена вперед.",
+    "rutube_url": "https://rutube.ru/shorts/embed/a491fa206be7f0c22c42f8fc77f92ccb/",
+    "photo_url": "https://i.ibb.co/xKNKrxsw/IMG-0573.jpg"
   }
 ]
