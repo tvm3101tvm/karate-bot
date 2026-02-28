@@ -3,30 +3,15 @@
     "id": "age_uke",
     "name": "Аге-уке",
     "description": "Верхний блок. Рука поднимается вверх.",
-    "rutube_url": "https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905h/"
+    "photo_url": "https://i.ibb.co/your-image-code/age-uke.jpg",
+    "video_url": "https://files.catbox.moe/video1.mp4"
   },
   {
     "id": "gedan_barai",
     "name": "Гедан барай",
     "description": "Нижний блок. Сметающее движение вниз.",
-    "rutube_url": "https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905i/"
+    "photo_url": "https://i.ibb.co/your-image-code/gedan-barai.jpg",
+    "video_url": "https://files.catbox.moe/video2.mp4"
   },
-  {
-    "id": "uchi_uke",
-    "name": "Учи-уке",
-    "description": "Блок рукой изнутри наружу.",
-    "rutube_url": "https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905j/"
-  },
-  {
-    "id": "soto_uke",
-    "name": "Сото-уке",
-    "description": "Блок рукой снаружи внутрь.",
-    "rutube_url": "https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905k/"
-  },
-  {
-    "id": "shuto_uke",
-    "name": "Шуто-уке",
-    "description": "Блок ребром ладони.",
-    "rutube_url": "https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905l/"
-  }
+  ... (остальные блоки)
 ]

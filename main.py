@@ -47,7 +47,7 @@ def create_main_menu_keyboard():
     keyboard.add(*buttons)
     return keyboard
 
-# ---------- ФУНКЦИЯ ПОИСКА ----------
+# ---------- ПОИСК ПО НАЗВАНИЯМ ----------
 def search_technique_by_name(query):
     query_lower = query.lower()
     all_tech = stances + blocks + punches + kicks + kihon_list + kata_list
@@ -69,76 +69,53 @@ def search_technique_by_name(query):
             seen_ids.add(tech['id'])
     return unique
 
-# ---------- ОТПРАВКА ИНФОРМАЦИИ О ТЕХНИКЕ (ПОДРОБНО) ----------
-def send_technique_info(chat_id, technique):
-    """Отправляет фото (если есть), описание и ссылку на видео"""
-    # Фото с названием
-    if 'photo_url' in technique and technique['photo_url']:
-        try:
+# ---------- ОТПРАВКА ФОТО С КНОПКОЙ ВИДЕО ----------
+def send_photo_with_video_button(chat_id, technique):
+    """Отправляет фото техники и под ним кнопку для просмотра видео"""
+    keyboard = None
+    if 'video_url' in technique and technique['video_url']:
+        keyboard = InlineKeyboardMarkup().add(
+            InlineKeyboardButton("🎥 Смотреть видео", callback_data=f"video_{technique['id']}")
+        )
+    caption = f"*{technique['name']}*"
+    try:
+        if 'photo_url' in technique and technique['photo_url']:
             bot.send_photo(
                 chat_id,
                 technique['photo_url'],
-                caption=f"*{technique['name']}*",
-                parse_mode='Markdown'
+                caption=caption,
+                parse_mode='Markdown',
+                reply_markup=keyboard
             )
-        except:
-            bot.send_message(chat_id, f"*{technique['name']}*", parse_mode='Markdown')
-    else:
-        bot.send_message(chat_id, f"*{technique['name']}*", parse_mode='Markdown')
-
-    # Описание
-    if technique.get('description'):
-        bot.send_message(chat_id, technique['description'], parse_mode='Markdown')
-
-    # Видео
-    if 'rutube_url' in technique:
-        bot.send_message(
-            chat_id,
-            f"🎥 [Смотреть видео]({technique['rutube_url']})",
-            parse_mode='Markdown',
-            disable_web_page_preview=False
-        )
-    else:
-        bot.send_message(chat_id, "⚠️ Видео временно недоступно")
-
-# ---------- НОВАЯ ФУНКЦИЯ: ПОКАЗ ВСЕХ ЭЛЕМЕНТОВ КАТЕГОРИИ С ФОТО ----------
-def send_category_items(chat_id, items, category_name):
-    """
-    Отправляет все элементы категории с фото (если есть) и кнопкой "Смотреть видео".
-    После завершения выводит главное меню.
-    """
-    for item in items:
-        # Формируем клавиатуру с кнопкой на видео
-        keyboard = None
-        if 'rutube_url' in item:
-            keyboard = InlineKeyboardMarkup().add(
-                InlineKeyboardButton("🎥 Смотреть видео", url=item['rutube_url'])
-            )
-
-        # Отправляем фото или просто название
-        caption = f"*{item['name']}*"
-        try:
-            if 'photo_url' in item and item['photo_url']:
-                bot.send_photo(
-                    chat_id,
-                    item['photo_url'],
-                    caption=caption,
-                    parse_mode='Markdown',
-                    reply_markup=keyboard
-                )
-            else:
-                bot.send_message(
-                    chat_id,
-                    caption,
-                    parse_mode='Markdown',
-                    reply_markup=keyboard
-                )
-        except Exception as e:
-            print(f"Ошибка при отправке {item['name']}: {e}")
-            # Если фото не отправилось, шлём просто текст
+        else:
             bot.send_message(chat_id, caption, parse_mode='Markdown', reply_markup=keyboard)
+    except Exception as e:
+        print(f"Ошибка отправки фото {technique['name']}: {e}")
+        bot.send_message(chat_id, caption, parse_mode='Markdown', reply_markup=keyboard)
 
-    # После всех техник возвращаем главное меню
+# ---------- ОТПРАВКА ВИДЕО ----------
+def send_video(chat_id, technique):
+    """Отправляет видео техники (прямая ссылка)"""
+    if 'video_url' in technique and technique['video_url']:
+        try:
+            bot.send_video(
+                chat_id,
+                technique['video_url'],
+                caption=f"*{technique['name']}*",
+                parse_mode='Markdown',
+                supports_streaming=True
+            )
+        except Exception as e:
+            print(f"Ошибка отправки видео {technique['name']}: {e}")
+            bot.send_message(chat_id, f"❌ Не удалось загрузить видео для {technique['name']}")
+    else:
+        bot.send_message(chat_id, "⚠️ Видео для этой техники отсутствует")
+
+# ---------- ПОКАЗ ВСЕХ ТЕХНИК КАТЕГОРИИ ----------
+def send_category_items(chat_id, items):
+    """Отправляет фото всех техник категории с кнопками видео"""
+    for item in items:
+        send_photo_with_video_button(chat_id, item)
     bot.send_message(chat_id, "Выберите категорию:", reply_markup=create_main_menu_keyboard())
 
 # ---------- ТЕСТЫ ----------
@@ -170,7 +147,8 @@ def handle_text(message):
     found = search_technique_by_name(text)
     if found:
         if len(found) == 1:
-            send_technique_info(message.chat.id, found[0])
+            # Показываем фото с кнопкой видео
+            send_photo_with_video_button(message.chat.id, found[0])
             return
         else:
             kb = InlineKeyboardMarkup(row_width=1)
@@ -180,19 +158,25 @@ def handle_text(message):
             bot.send_message(message.chat.id, "🔍 Нашёл несколько вариантов:", reply_markup=kb)
             return
 
-    # Ключевые слова категорий (оставлено для обратной совместимости)
+    # Ключевые слова категорий (быстрый доступ)
     if any(w in text for w in ["стойк", "стойка", "дзенкуцу", "киба", "кокуцу"]):
-        bot.send_message(message.chat.id, "🥋 Выберите категорию:", reply_markup=create_main_menu_keyboard())
+        bot.send_message(message.chat.id, "🥋 Все стойки:", reply_markup=create_main_menu_keyboard())
+        send_category_items(message.chat.id, stances)
     elif any(w in text for w in ["блок", "уке", "гедан", "учи", "сото", "шуто"]):
-        bot.send_message(message.chat.id, "🛡️ Выберите категорию:", reply_markup=create_main_menu_keyboard())
+        bot.send_message(message.chat.id, "🛡️ Все блоки:", reply_markup=create_main_menu_keyboard())
+        send_category_items(message.chat.id, blocks)
     elif any(w in text for w in ["удар рукой", "цуки", "ой", "гьяку"]):
-        bot.send_message(message.chat.id, "👊 Выберите категорию:", reply_markup=create_main_menu_keyboard())
+        bot.send_message(message.chat.id, "👊 Все удары руками:", reply_markup=create_main_menu_keyboard())
+        send_category_items(message.chat.id, punches)
     elif any(w in text for w in ["удар ногой", "гери", "мае", "маваши", "йоко", "урамаваши"]):
-        bot.send_message(message.chat.id, "🦵 Выберите категорию:", reply_markup=create_main_menu_keyboard())
+        bot.send_message(message.chat.id, "🦵 Все удары ногами:", reply_markup=create_main_menu_keyboard())
+        send_category_items(message.chat.id, kicks)
     elif any(w in text for w in ["кихон", "связк"]):
-        bot.send_message(message.chat.id, "📚 Выберите категорию:", reply_markup=create_main_menu_keyboard())
+        bot.send_message(message.chat.id, "📚 Все связки:", reply_markup=create_main_menu_keyboard())
+        send_category_items(message.chat.id, kihon_list)
     elif any(w in text for w in ["ката", "хейан"]):
-        bot.send_message(message.chat.id, "📜 Выберите категорию:", reply_markup=create_main_menu_keyboard())
+        bot.send_message(message.chat.id, "📜 Все ката:", reply_markup=create_main_menu_keyboard())
+        send_category_items(message.chat.id, kata_list)
     elif any(w in text for w in ["тест", "экзамен", "проверк"]):
         if tests:
             send_test_question(message.chat.id, 0)
@@ -206,34 +190,34 @@ def callback(call):
     data = call.data
 
     if data == "main_menu":
-        bot.edit_message_text("Главное меню:", call.message.chat.id, call.message.message_id,
-                              reply_markup=create_main_menu_keyboard())
+        try:
+            bot.delete_message(call.message.chat.id, call.message.message_id)
+        except:
+            pass
+        bot.send_message(call.message.chat.id, "Главное меню:", reply_markup=create_main_menu_keyboard())
         return
 
     if data.startswith("menu_"):
         cat = data[5:]
-        # Удаляем сообщение с кнопкой категории, чтобы не загромождать чат
         try:
             bot.delete_message(call.message.chat.id, call.message.message_id)
         except:
-            pass  # если не удалось удалить, игнорируем
+            pass
 
         if cat == "stances" and stances:
-            send_category_items(call.message.chat.id, stances, "стойки")
+            send_category_items(call.message.chat.id, stances)
         elif cat == "blocks" and blocks:
-            send_category_items(call.message.chat.id, blocks, "блоки")
+            send_category_items(call.message.chat.id, blocks)
         elif cat == "punches" and punches:
-            send_category_items(call.message.chat.id, punches, "удары руками")
+            send_category_items(call.message.chat.id, punches)
         elif cat == "kicks" and kicks:
-            send_category_items(call.message.chat.id, kicks, "удары ногами")
+            send_category_items(call.message.chat.id, kicks)
         elif cat == "kihon" and kihon_list:
-            send_category_items(call.message.chat.id, kihon_list, "кихон")
+            send_category_items(call.message.chat.id, kihon_list)
         elif cat == "kata" and kata_list:
-            send_category_items(call.message.chat.id, kata_list, "ката")
+            send_category_items(call.message.chat.id, kata_list)
         elif cat == "tests":
             send_test_question(call.message.chat.id, 0)
-        else:
-            bot.send_message(call.message.chat.id, "❌ Категория пуста", reply_markup=create_main_menu_keyboard())
         return
 
     if data.startswith("show_"):
@@ -241,13 +225,17 @@ def callback(call):
         all_tech = stances + blocks + punches + kicks + kihon_list + kata_list
         technique = next((t for t in all_tech if t['id'] == tech_id), None)
         if technique:
-            try:
-                bot.delete_message(call.message.chat.id, call.message.message_id)
-            except:
-                pass
-            send_technique_info(call.message.chat.id, technique)
-            # Возвращаем главное меню
-            bot.send_message(call.message.chat.id, "Главное меню:", reply_markup=create_main_menu_keyboard())
+            send_photo_with_video_button(call.message.chat.id, technique)
+        else:
+            bot.answer_callback_query(call.id, "❌ Не найдено")
+        return
+
+    if data.startswith("video_"):
+        tech_id = data[6:]  # после "video_"
+        all_tech = stances + blocks + punches + kicks + kihon_list + kata_list
+        technique = next((t for t in all_tech if t['id'] == tech_id), None)
+        if technique:
+            send_video(call.message.chat.id, technique)
         else:
             bot.answer_callback_query(call.id, "❌ Не найдено")
         return
