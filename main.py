@@ -1,10 +1,10 @@
-# main.py
+
 import telebot
 import json
 import os
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-# ---------- НАСТРОЙКИ ----------
+
 TOKEN = os.environ.get('BOT_TOKEN')
 if not TOKEN:
     print("❌ ОШИБКА: токен не найден в переменных окружения!")
@@ -12,7 +12,7 @@ if not TOKEN:
 
 bot = telebot.TeleBot(TOKEN)
 
-# ---------- ЗАГРУЗКА ДАННЫХ ----------
+
 def load_json_data(filename):
     try:
         file_path = os.path.join('data', filename)
@@ -24,14 +24,14 @@ def load_json_data(filename):
         print(f"❌ Ошибка загрузки {filename}: {e}")
         return []
 
-# Загружаем только нужные категории (киxон и ката исключены)
+
 stances = load_json_data('stances.json')
 blocks = load_json_data('blocks.json')
 punches = load_json_data('punches.json')
 kicks = load_json_data('kicks.json')
 tests = load_json_data('tests.json')
 
-# ---------- КЛАВИАТУРЫ ----------
+
 def create_main_menu_keyboard():
     keyboard = InlineKeyboardMarkup(row_width=2)
     buttons = [
@@ -44,10 +44,10 @@ def create_main_menu_keyboard():
     keyboard.add(*buttons)
     return keyboard
 
-# ---------- ПОИСК ПО НАЗВАНИЯМ ----------
+
 def search_technique_by_name(query):
     query_lower = query.lower()
-    all_tech = stances + blocks + punches + kicks  # ката и киxон удалены
+    all_tech = stances + blocks + punches + kicks  
     results = []
     for tech in all_tech:
         if tech['name'].lower() in query_lower:
@@ -58,7 +58,7 @@ def search_technique_by_name(query):
                 if len(word) >= 3 and word in tech['name'].lower():
                     results.append(tech)
                     break
-    # Убираем дубликаты
+    
     unique = []
     seen_ids = set()
     for tech in results:
@@ -67,7 +67,7 @@ def search_technique_by_name(query):
             seen_ids.add(tech['id'])
     return unique
 
-# ---------- ОТПРАВКА ФОТО С КНОПКОЙ ВИДЕО ----------
+
 def send_photo_with_video_button(chat_id, technique):
     """Отправляет фото техники и под ним кнопку для просмотра видео на RuTube"""
     keyboard = None
@@ -91,7 +91,7 @@ def send_photo_with_video_button(chat_id, technique):
         print(f"Ошибка отправки фото {technique['name']}: {e}")
         bot.send_message(chat_id, caption, parse_mode='Markdown', reply_markup=keyboard)
 
-# ---------- ОТПРАВКА ССЫЛКИ НА ВИДЕО ----------
+
 def send_video_link(chat_id, technique):
     """Отправляет сообщение со ссылкой на видео (RuTube)"""
     if 'rutube_url' in technique and technique['rutube_url']:
@@ -100,14 +100,14 @@ def send_video_link(chat_id, technique):
     else:
         bot.send_message(chat_id, "⚠️ Видео для этой техники отсутствует")
 
-# ---------- ПОКАЗ ВСЕХ ТЕХНИК КАТЕГОРИИ ----------
+
 def send_category_items(chat_id, items):
     """Отправляет фото всех техник категории с кнопками видео"""
     for item in items:
         send_photo_with_video_button(chat_id, item)
     bot.send_message(chat_id, "Выберите категорию:", reply_markup=create_main_menu_keyboard())
 
-# ---------- ТЕСТЫ ----------
+
 def send_test_question(chat_id, index):
     if index >= len(tests):
         bot.send_message(chat_id, "🎉 Тест завершён!", reply_markup=create_main_menu_keyboard())
@@ -120,15 +120,23 @@ def send_test_question(chat_id, index):
     # Отправляем GIF по ссылке RuTube (embed)
     bot.send_animation(chat_id, test['gif_url'], caption=f"❓ {test['question']}", reply_markup=keyboard)
 
-# ---------- ОБРАБОТЧИКИ ----------
+
 @bot.message_handler(commands=['start'])
 def start(message):
     bot.send_message(
         message.chat.id,
-        "👋 Добро пожаловать в бот Каратэ для начинающих!\n"
-        "Выбери для изучения и повторения раздел в меню ниже",
+        "👋 Добро пожаловать в чат-бот "Каратэ для начинающих"!\n"
+        "Я помогу подготовиться к аттестации.\n"
+        "Выберите раздел в меню ниже:",
         reply_markup=create_main_menu_keyboard()
     )
+@bot.message_handler(commands=['testfoto'])
+def test_foto(message):
+    test_url = "https://i.postimg.cc/P5grXnKc/IMG-0573-(1).jpg"  # замените на реальную рабочую ссылку
+    try:
+        bot.send_photo(message.chat.id, test_url, caption="Тестовое фото")
+    except Exception as e:
+        bot.reply_to(message, f"Ошибка: {e}")
 
 @bot.message_handler(func=lambda message: True)
 def handle_text(message):
