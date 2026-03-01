@@ -132,11 +132,13 @@ def start(message):
     )
 @bot.message_handler(commands=['testfoto'])
 def test_foto(message):
-    test_url = "https://i.postimg.cc/P5grXnKc/IMG-0573-(1).jpg"  # замените на реальную рабочую ссылку
+    print("✅ Команда /testfoto получена!")  # это появится в логах Bothost
+    test_url = "https://i.postimg.cc/RZ5Z9zPz/IMG-0573.jpg"
     try:
         bot.send_photo(message.chat.id, test_url, caption="Тестовое фото")
     except Exception as e:
         bot.reply_to(message, f"Ошибка: {e}")
+        print(f"❌ Ошибка отправки фото: {e}")
 
 @bot.message_handler(func=lambda message: True)
 def handle_text(message):
