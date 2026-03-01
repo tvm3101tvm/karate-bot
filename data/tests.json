@@ -1,23 +1,100 @@
 [
   {
-    "id": "test_1",
-    "question": "Как называется эта стойка?",
-    "gif_url": "https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53906a/",
+    "id": "test_stance_1",
+    "question": "Как называется эта стойка? (Дзенкуцу дачи)",
+    "gif_url": "https://rutube.ru/play/embed/your_gif_id_1/",
     "correct_answer": "Дзенкуцу дачи",
     "options": ["Дзенкуцу дачи", "Киба дачи", "Кокуцу дачи", "Не знаю"]
   },
   {
-    "id": "test_2",
-    "question": "Какой это блок?",
-    "gif_url": "https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53906b/",
-    "correct_answer": "Аге-уке",
-    "options": ["Аге-уке", "Гедан барай", "Учи-уке", "Сото-уке"]
+    "id": "test_stance_2",
+    "question": "Как называется эта стойка? (Киба дачи)",
+    "gif_url": "https://rutube.ru/play/embed/your_gif_id_2/",
+    "correct_answer": "Киба дачи",
+    "options": ["Киба дачи", "Дзенкуцу дачи", "Кокуцу дачи", "Не знаю"]
   },
   {
-    "id": "test_3",
-    "question": "Какой это удар ногой?",
-    "gif_url": "https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53906c/",
+    "id": "test_stance_3",
+    "question": "Как называется эта стойка? (Кокуцу дачи)",
+    "gif_url": "https://rutube.ru/play/embed/your_gif_id_3/",
+    "correct_answer": "Кокуцу дачи",
+    "options": ["Кокуцу дачи", "Дзенкуцу дачи", "Киба дачи", "Не знаю"]
+  },
+  {
+    "id": "test_block_1",
+    "question": "Какой это блок? (Аге-уке)",
+    "gif_url": "https://rutube.ru/play/embed/your_gif_id_4/",
+    "correct_answer": "Аге-уке",
+    "options": ["Аге-уке", "Гедан барай", "Учи-уке", "Сото-уке", "Шуто-уке", "Не знаю"]
+  },
+  {
+    "id": "test_block_2",
+    "question": "Какой это блок? (Гедан барай)",
+    "gif_url": "https://rutube.ru/play/embed/your_gif_id_5/",
+    "correct_answer": "Гедан барай",
+    "options": ["Гедан барай", "Аге-уке", "Учи-уке", "Сото-уке", "Шуто-уке", "Не знаю"]
+  },
+  {
+    "id": "test_block_3",
+    "question": "Какой это блок? (Учи-уке)",
+    "gif_url": "https://rutube.ru/play/embed/your_gif_id_6/",
+    "correct_answer": "Учи-уке",
+    "options": ["Учи-уке", "Аге-уке", "Гедан барай", "Сото-уке", "Шуто-уке", "Не знаю"]
+  },
+  {
+    "id": "test_block_4",
+    "question": "Какой это блок? (Сото-уке)",
+    "gif_url": "https://rutube.ru/play/embed/your_gif_id_7/",
+    "correct_answer": "Сото-уке",
+    "options": ["Сото-уке", "Аге-уке", "Гедан барай", "Учи-уке", "Шуто-уке", "Не знаю"]
+  },
+  {
+    "id": "test_block_5",
+    "question": "Какой это блок? (Шуто-уке)",
+    "gif_url": "https://rutube.ru/play/embed/your_gif_id_8/",
+    "correct_answer": "Шуто-уке",
+    "options": ["Шуто-уке", "Аге-уке", "Гедан барай", "Учи-уке", "Сото-уке", "Не знаю"]
+  },
+  {
+    "id": "test_punch_1",
+    "question": "Какой это удар рукой? (Ой-цуки)",
+    "gif_url": "https://rutube.ru/play/embed/your_gif_id_9/",
+    "correct_answer": "Ой-цуки",
+    "options": ["Ой-цуки", "Гьяку-цуки", "Не знаю"]
+  },
+  {
+    "id": "test_punch_2",
+    "question": "Какой это удар рукой? (Гьяку-цуки)",
+    "gif_url": "https://rutube.ru/play/embed/your_gif_id_10/",
+    "correct_answer": "Гьяку-цуки",
+    "options": ["Гьяку-цуки", "Ой-цуки", "Не знаю"]
+  },
+  {
+    "id": "test_kick_1",
+    "question": "Какой это удар ногой? (Мае-гери)",
+    "gif_url": "https://rutube.ru/play/embed/your_gif_id_11/",
     "correct_answer": "Мае-гери",
-    "options": ["Мае-гери", "Маваши-гери", "Йоко-гери", "Урамаваши-гери"]
+    "options": ["Мае-гери", "Маваши-гери", "Йоко-гери", "Урамаваши-гери", "Не знаю"]
+  },
+  {
+    "id": "test_kick_2",
+    "question": "Какой это удар ногой? (Маваши-гери)",
+    "gif_url": "https://rutube.ru/play/embed/your_gif_id_12/",
+    "correct_answer": "Маваши-гери",
+    "options": ["Маваши-гери", "Мае-гери", "Йоко-гери", "Урамаваши-гери", "Не знаю"]
+  },
+  {
+    "id": "test_kick_3",
+    "question": "Какой это удар ногой? (Йоко-гери)",
+    "gif_url": "https://rutube.ru/play/embed/your_gif_id_13/",
+    "correct_answer": "Йоко-гери",
+    "options": ["Йоко-гери", "Мае-гери", "Маваши-гери", "Урамаваши-гери", "Не знаю"]
+  },
+  {
+    "id": "test_kick_4",
+    "question": "Какой это удар ногой? (Урамаваши-гери)",
+    "gif_url": "https://rutube.ru/play/embed/your_gif_id_14/",
+    "correct_answer": "Урамаваши-гери",
+    "options": ["Урамаваши-гери", "Мае-гери", "Маваши-гери", "Йоко-гери", "Не знаю"]
   }
 ]

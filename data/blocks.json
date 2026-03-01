@@ -2,16 +2,36 @@
   {
     "id": "age_uke",
     "name": "Аге-уке",
-    "description": "Верхний блок. Рука поднимается вверх.",
-    "photo_url": "https://i.ibb.co/your-image-code/age-uke.jpg",
-    "video_url": "https://files.catbox.moe/video1.mp4"
+    "description": "Верхний блок. Рука поднимается вверх, защищая голову от удара сверху. Предплечье движется снизу вверх.",
+    "photo_url": "https://example.com/images/age_uke.jpg",
+    "rutube_url": "https://rutube.ru/play/embed/your_video_id_4/"
   },
   {
     "id": "gedan_barai",
     "name": "Гедан барай",
-    "description": "Нижний блок. Сметающее движение вниз.",
-    "photo_url": "https://i.ibb.co/your-image-code/gedan-barai.jpg",
-    "video_url": "https://files.catbox.moe/video2.mp4"
+    "description": "Нижний блок. Сметающее движение вниз для защиты от ударов в низ корпуса. Рука движется сверху вниз, кулак развернут внутрь.",
+    "photo_url": "https://example.com/images/gedan_barai.jpg",
+    "rutube_url": "https://rutube.ru/play/embed/your_video_id_5/"
   },
-  ... (остальные блоки)
+  {
+    "id": "uchi_uke",
+    "name": "Учи-уке",
+    "description": "Блок рукой изнутри наружу. Движение от центра корпуса наружу, предплечье вращается, блокируя удар в средний уровень.",
+    "photo_url": "https://example.com/images/uchi_uke.jpg",
+    "rutube_url": "https://rutube.ru/play/embed/your_video_id_6/"
+  },
+  {
+    "id": "soto_uke",
+    "name": "Сото-уке",
+    "description": "Блок рукой снаружи внутрь. Движение от внешней стороны к центру, предплечье вращается для отражения атаки.",
+    "photo_url": "https://example.com/images/soto_uke.jpg",
+    "rutube_url": "https://rutube.ru/play/embed/your_video_id_7/"
+  },
+  {
+    "id": "shuto_uke",
+    "name": "Шуто-уке",
+    "description": "Блок ребром ладони. Рука открыта, блок выполняется внешним ребром ладони. Движение может быть как внутрь, так и наружу.",
+    "photo_url": "https://example.com/images/shuto_uke.jpg",
+    "rutube_url": "https://rutube.ru/play/embed/your_video_id_8/"
+  }
 ]

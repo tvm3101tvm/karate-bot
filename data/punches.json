@@ -2,15 +2,15 @@
   {
     "id": "oi_zuki",
     "name": "Ой-цуки",
-    "description": "Прямой удар рукой с разноименной ногой. Например, правая рука бьет с шагом правой ногой вперед. Рука движется по прямой линии.",
-    "rutube_url": "https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905m/",
-    "photo_url": "https://example.com/images/oi_zuki.jpg"
+    "description": "Прямой удар рукой с одноименной ногой. Например, правая рука бьет с шагом правой ногой вперед. Рука движется по прямой линии.",
+    "photo_url": "https://example.com/images/oi_zuki.jpg",
+    "rutube_url": "https://rutube.ru/play/embed/your_video_id_9/"
   },
   {
     "id": "gyaku_zuki",
     "name": "Гьяку-цуки",
     "description": "Прямой удар рукой с разноименной ногой. Правая рука бьет, когда впереди левая нога. Мощный удар с вращением бедер.",
-    "rutube_url": "https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905n/",
-    "photo_url": "https://example.com/images/gyaku_zuki.jpg"
+    "photo_url": "https://example.com/images/gyaku_zuki.jpg",
+    "rutube_url": "https://rutube.ru/play/embed/your_video_id_10/"
   }
 ]

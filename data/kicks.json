@@ -3,28 +3,28 @@
     "id": "mae_geri",
     "name": "Мае-гери",
     "description": "Прямой удар ногой вперед. Удар наносится подушечками пальцев стопы или подъемом стопы. Колено поднимается вверх, затем нога резко выпрямляется.",
-    "rutube_url": "https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905o/",
-    "photo_url": "https://example.com/images/mae_geri.jpg"
+    "photo_url": "https://example.com/images/mae_geri.jpg",
+    "rutube_url": "https://rutube.ru/play/embed/your_video_id_11/"
   },
   {
     "id": "mawashi_geri",
     "name": "Маваши-гери",
     "description": "Круговой удар ногой. Удар наносится подъемом стопы или голенью по круговой траектории. Корпус разворачивается, бедро движется горизонтально.",
-    "rutube_url": "https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905p/",
-    "photo_url": "https://example.com/images/mawashi_geri.jpg"
+    "photo_url": "https://example.com/images/mawashi_geri.jpg",
+    "rutube_url": "https://rutube.ru/play/embed/your_video_id_12/"
   },
   {
     "id": "yoko_geri",
     "name": "Йоко-гери",
     "description": "Удар ногой в сторону. Удар наносится ребром стопы (сокуто). Нога поднимается в сторону и резко выпрямляется.",
-    "rutube_url": "https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905q/",
-    "photo_url": "https://example.com/images/yoko_geri.jpg"
+    "photo_url": "https://example.com/images/yoko_geri.jpg",
+    "rutube_url": "https://rutube.ru/play/embed/your_video_id_13/"
   },
   {
     "id": "uramawashi_geri",
     "name": "Урамаваши-гери",
     "description": "Обратный круговой удар ногой. Движение идет снаружи внутрь, пятка или подошва стопы направлены к цели.",
-    "rutube_url": "https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905r/",
-    "photo_url": "https://example.com/images/uramawashi_geri.jpg"
+    "photo_url": "https://example.com/images/uramawashi_geri.jpg",
+    "rutube_url": "https://rutube.ru/play/embed/your_video_id_14/"
   }
 ]
