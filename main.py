@@ -125,8 +125,8 @@ def send_test_question(chat_id, index):
 def start(message):
     bot.send_message(
         message.chat.id,
-        "👋 Добро пожаловать в чат-бот "Каратэ для начинающих"!\n"
-        "Выберите раздел в меню для изучения и повторения:",
+        "👋 Добро пожаловать в бот Каратэ для начинающих!\n"
+        "Выбери для изучения и повторения раздел в меню ниже",
         reply_markup=create_main_menu_keyboard()
     )
 
