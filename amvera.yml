@@ -1,14 +1,10 @@
 meta:
-  environment: python
-  toolchain:
-    name: pip
-    version: 3.11.9
+  name: karate-bot
+  version: 1.0.0
 build:
-  requirementsPath: requirements.txt
-  useCache: true
+  language: python
+  requirements: requirements.txt
 run:
-  scriptName: null
-  command: python bot.py
-  persistenceMount: /data
-  containerPort: "80"
-  servicePort: "80"
+  command: ls -la && python bot.py
+  environment:
+    - BOT_TOKEN
