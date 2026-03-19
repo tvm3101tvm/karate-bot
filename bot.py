@@ -16,7 +16,7 @@ from database import (
 from keyboards import main_menu, test_options, technique_keyboard, techniques_menu
 from utils import get_next_test_technique, get_recommendations
 
-# Отладочный вывод версий (можно удалить после проверки)
+# Отладочный вывод версий
 print(f"Python version: {sys.version}")
 print(f"aiogram version: {aiogram.__version__}")
 
@@ -96,6 +96,37 @@ async def cmd_help(message: types.Message):
         "Если у вас есть вопросы или предложения, пишите: @ваш_логин"
     )
     await message.reply(help_text, parse_mode="HTML")
+
+# ---------------------------------------------------------
+# ВРЕМЕННЫЙ ОБРАБОТЧИК ДЛЯ ПОЛУЧЕНИЯ FILE_ID
+# (после получения всех нужных file_id его нужно удалить или закомментировать)
+# ---------------------------------------------------------
+@dp.message_handler(content_types=['photo', 'video', 'animation', 'voice', 'audio'])
+async def get_file_id_handler(message: types.Message):
+    print(f"Получено медиа типа {message.content_type}")  # отладочный вывод
+    file_id = None
+    file_type = ""
+
+    if message.photo:
+        file_id = message.photo[-1].file_id
+        file_type = "фото"
+    elif message.video:
+        file_id = message.video.file_id
+        file_type = "видео"
+    elif message.animation:
+        file_id = message.animation.file_id
+        file_type = "GIF"
+    elif message.voice:
+        file_id = message.voice.file_id
+        file_type = "голосовое"
+    elif message.audio:
+        file_id = message.audio.file_id
+        file_type = "аудио"
+    else:
+        return
+
+    await message.reply(f"✅ {file_type} file_id:\n`{file_id}`")
+    print(f"Отправлен file_id для {file_type}")
 
 # ---------------------------------------------------------
 # БЛОК 2: НАВИГАЦИЯ И ПРОСМОТР ТЕХНИК
@@ -451,7 +482,7 @@ async def set_commands(bot: Bot):
 async def on_startup(dp):
     await bot.delete_webhook(drop_pending_updates=True)
     await set_commands(bot)
-    # Проверка базы данных (добавлено для отладки)
+    # Проверка базы данных
     session = Session()
     tech_count = session.query(Technique).count()
     print(f"=== DATABASE CHECK: {tech_count} techniques found ===")
