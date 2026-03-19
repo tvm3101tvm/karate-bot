@@ -30,8 +30,8 @@ def main():
             name_ja='Кокуцу дачи',
             category='stance',
             description='Перенос веса на заднюю ногу.',
-            video_path='BAACAgIAAxkBAAIBhGmqHPdo7oOHRGjdS-4SwwABu6NWAAPKmQACbbNRSRqCOqCB_rM6OgQ',
-            gif_path='CgACAgIAAxkBAAIEBGmvI2-d5pVixnHOJrfgPSWzMSaKAAJnngAC_T14SaLSXpRJf8NjOgQ',
+            video_path='BAACAgIAAxkBAAIGyGm8HZeIBMPe9EEkc0KpAqCc7pppAALKmQACbbNRSRqCOqCB_rM6OgQ',
+            gif_path='CgACAgIAAxkBAAIGyWm8HxdEXaejlXw1U6dafg78BTzCAAJnngAC_T14SaLSXpRJf8NjOgQ',
             audio_path='CQACAgIAAxkBAAIEx2mwLz7gS5zFuwTk_OkqAphJjaA_AAJfnQAC_T14ST8IT1qOwdRHOgQ'
         ),
 
@@ -42,7 +42,7 @@ def main():
             category='block',
             description='Для защиты головы.',
             video_path='file_id_видео_агэукэ',
-            gif_path='BAACAgIAAxkBAAIBvWmseJI4-ZgYaJON_90r0ZKKl5L8AAKPmAAChPhoSYjPqjEPFiZlOgQ',
+            gif_path='CgACAgIAAxkBAAIGyWm8HxdEXaejlXw1U6dafg78BTzCAAJnngAC_T14SaLSXpRJf8NjOgQ',
             audio_path='CQACAgIAAxkBAAIEx2mwLz7gS5zFuwTk_OkqAphJjaA_AAJfnQAC_T14ST8IT1qOwdRHOgQ'
         ),
         Technique(
