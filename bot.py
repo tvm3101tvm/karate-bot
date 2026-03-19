@@ -16,7 +16,6 @@ from database import (
 from keyboards import main_menu, test_options, technique_keyboard, techniques_menu
 from utils import get_next_test_technique, get_recommendations
 
-# Отладочный вывод версий
 print(f"Python version: {sys.version}")
 print(f"aiogram version: {aiogram.__version__}")
 
@@ -99,11 +98,11 @@ async def cmd_help(message: types.Message):
 
 # ---------------------------------------------------------
 # ВРЕМЕННЫЙ ОБРАБОТЧИК ДЛЯ ПОЛУЧЕНИЯ FILE_ID
-# (после получения всех нужных file_id его нужно удалить или закомментировать)
+# (после получения всех нужных file_id его можно удалить или закомментировать)
 # ---------------------------------------------------------
 @dp.message_handler(content_types=['photo', 'video', 'animation', 'voice', 'audio'])
 async def get_file_id_handler(message: types.Message):
-    print(f"Получено медиа типа {message.content_type}")  # отладочный вывод
+    print(f"Получено медиа типа {message.content_type}")
     file_id = None
     file_type = ""
 
@@ -144,12 +143,6 @@ async def callback_main_menu(callback_query: types.CallbackQuery):
         reply_markup=main_menu()
     )
 
-@dp.callback_query_handler(lambda c: c.data.startswith('cat_') and c.data not in ['cat_kihon', 'cat_kata'])
-async def callback_category(callback_query: types.CallbackQuery):
-    print(f"!!! callback_category вызвана с data = {callback_query.data}")
-    # ... остальной код
-
-
 @dp.callback_query_handler(lambda c: c.data == 'cat_kihon')
 async def callback_kihon(callback_query: types.CallbackQuery):
     user_id = callback_query.from_user.id
@@ -174,6 +167,7 @@ async def callback_kata(callback_query: types.CallbackQuery):
 
 @dp.callback_query_handler(lambda c: c.data.startswith('cat_') and c.data not in ['cat_kihon', 'cat_kata'])
 async def callback_category(callback_query: types.CallbackQuery):
+    print(f"!!! callback_category ВЫЗВАН с данными: {callback_query.data}")
     data = callback_query.data
     user_id = callback_query.from_user.id
     message = callback_query.message
@@ -487,9 +481,9 @@ async def set_commands(bot: Bot):
     await bot.set_my_commands(commands)
 
 async def on_startup(dp):
+    print("!!! on_startup ВЫПОЛНЯЕТСЯ")
     await bot.delete_webhook(drop_pending_updates=True)
     await set_commands(bot)
-    # Проверка базы данных
     session = Session()
     tech_count = session.query(Technique).count()
     print(f"=== DATABASE CHECK: {tech_count} techniques found ===")
