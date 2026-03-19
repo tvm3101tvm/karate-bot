@@ -1,7 +1,7 @@
 import logging
 import random
-import sys          # добавлено для отладки
-import aiogram      # для получения версии
+import sys
+import aiogram
 from aiogram import Bot, Dispatcher, types
 from aiogram.contrib.middlewares.logging import LoggingMiddleware
 from aiogram.utils import executor
@@ -16,7 +16,7 @@ from database import (
 from keyboards import main_menu, test_options, technique_keyboard, techniques_menu
 from utils import get_next_test_technique, get_recommendations
 
-# Отладочный вывод версий
+# Отладочный вывод версий (можно удалить после проверки)
 print(f"Python version: {sys.version}")
 print(f"aiogram version: {aiogram.__version__}")
 
@@ -451,8 +451,12 @@ async def set_commands(bot: Bot):
 async def on_startup(dp):
     await bot.delete_webhook(drop_pending_updates=True)
     await set_commands(bot)
+    # Проверка базы данных (добавлено для отладки)
+    session = Session()
+    tech_count = session.query(Technique).count()
+    print(f"=== DATABASE CHECK: {tech_count} techniques found ===")
+    session.close()
     print("Вебхук сброшен, ожидающие обновления удалены, команды меню установлены")
 
 if __name__ == '__main__':
     executor.start_polling(dp, on_startup=on_startup, skip_updates=True, timeout=60)
-    
