@@ -1,5 +1,7 @@
 import logging
 import random
+import sys          # добавлено для отладки
+import aiogram      # для получения версии
 from aiogram import Bot, Dispatcher, types
 from aiogram.contrib.middlewares.logging import LoggingMiddleware
 from aiogram.utils import executor
@@ -14,6 +16,10 @@ from database import (
 from keyboards import main_menu, test_options, technique_keyboard, techniques_menu
 from utils import get_next_test_technique, get_recommendations
 
+# Отладочный вывод версий
+print(f"Python version: {sys.version}")
+print(f"aiogram version: {aiogram.__version__}")
+
 logging.basicConfig(level=logging.INFO)
 
 bot = Bot(token=BOT_TOKEN, timeout=ClientTimeout(total=120))
@@ -22,6 +28,9 @@ dp.middleware.setup(LoggingMiddleware())
 
 user_test_state = {}
 
+# ---------------------------------------------------------
+# Вспомогательная функция отправки вопроса теста
+# ---------------------------------------------------------
 async def send_question(user_id, tech_id, question_num, total_questions):
     tech = get_technique_by_id(tech_id)
     await bot.send_animation(
@@ -38,7 +47,10 @@ async def send_question(user_id, tech_id, question_num, total_questions):
         reply_markup=test_options(tech, all_techs)
     )
 
-# --- КОМАНДЫ ---
+# ---------------------------------------------------------
+# БЛОК 1: КОМАНДЫ
+# ---------------------------------------------------------
+
 @dp.message_handler(commands=['start'])
 async def cmd_start(message: types.Message):
     await message.answer(
@@ -85,7 +97,10 @@ async def cmd_help(message: types.Message):
     )
     await message.reply(help_text, parse_mode="HTML")
 
-# --- НАВИГАЦИЯ ---
+# ---------------------------------------------------------
+# БЛОК 2: НАВИГАЦИЯ И ПРОСМОТР ТЕХНИК
+# ---------------------------------------------------------
+
 @dp.callback_query_handler(lambda c: c.data == 'main_menu')
 async def callback_main_menu(callback_query: types.CallbackQuery):
     user_id = callback_query.from_user.id
@@ -223,7 +238,10 @@ async def callback_audio(callback_query: types.CallbackQuery):
     else:
         await bot.answer_callback_query(callback_query.id, text="Аудио пока не добавлено", show_alert=False)
 
-# --- ТЕСТ ---
+# ---------------------------------------------------------
+# БЛОК 3: ТЕСТИРОВАНИЕ
+# ---------------------------------------------------------
+
 @dp.callback_query_handler(lambda c: c.data == 'test_start')
 async def callback_test_start(callback_query: types.CallbackQuery):
     user_id = callback_query.from_user.id
@@ -378,7 +396,10 @@ async def callback_test_cancel(callback_query: types.CallbackQuery):
         reply_markup=main_menu()
     )
 
-# --- РЕКОМЕНДАЦИИ ---
+# ---------------------------------------------------------
+# БЛОК 4: РЕКОМЕНДАЦИИ (callback)
+# ---------------------------------------------------------
+
 @dp.callback_query_handler(lambda c: c.data == 'recommend')
 async def callback_recommend(callback_query: types.CallbackQuery):
     user_id = callback_query.from_user.id
@@ -389,7 +410,10 @@ async def callback_recommend(callback_query: types.CallbackQuery):
         text = 'Пока нет статистики. Пройдите тест, чтобы получить рекомендации.'
     await bot.send_message(user_id, text, reply_markup=main_menu())
 
-# --- ТЕКСТОВЫЙ ПОИСК ---
+# ---------------------------------------------------------
+# БЛОК 5: ТЕКСТОВЫЙ ПОИСК
+# ---------------------------------------------------------
+
 @dp.message_handler()
 async def handle_text(message: types.Message):
     text = message.text.lower().strip()
@@ -411,7 +435,10 @@ async def handle_text(message: types.Message):
             reply_markup=main_menu()
         )
 
-# --- СЛУЖЕБНЫЕ ---
+# ---------------------------------------------------------
+# БЛОК 6: СЛУЖЕБНЫЕ ФУНКЦИИ И ЗАПУСК
+# ---------------------------------------------------------
+
 async def set_commands(bot: Bot):
     commands = [
         BotCommand(command="start", description="Запустить бота"),
@@ -428,3 +455,4 @@ async def on_startup(dp):
 
 if __name__ == '__main__':
     executor.start_polling(dp, on_startup=on_startup, skip_updates=True, timeout=60)
+    
