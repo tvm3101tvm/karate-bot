@@ -1,6 +1,14 @@
+# Виртуальное окружение
 venv/
+.env
+
+# Кэш Python
 __pycache__/
 *.pyc
-.env
-instance/
-*.db
+
+# База данных
+#instance/
+#*.db
+
+# Файлы IDE (например, VS Code)
+.vscode/
