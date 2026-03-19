@@ -10,5 +10,3 @@ __pycache__/
 #instance/
 #*.db
 
-# Файлы IDE (например, VS Code)
-.vscode/
