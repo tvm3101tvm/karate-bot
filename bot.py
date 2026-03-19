@@ -132,6 +132,11 @@ async def get_file_id_handler(message: types.Message):
 # БЛОК 2: НАВИГАЦИЯ И ПРОСМОТР ТЕХНИК
 # ---------------------------------------------------------
 
+@dp.callback_query_handler(lambda c: c.data.startswith('cat_') and c.data not in ['cat_kihon', 'cat_kata'])
+async def callback_category(callback_query: types.CallbackQuery):
+    print(f"!!! callback_category вызвана с data = {callback_query.data}")
+    # ... остальной код
+    
 @dp.callback_query_handler(lambda c: c.data == 'main_menu')
 async def callback_main_menu(callback_query: types.CallbackQuery):
     user_id = callback_query.from_user.id
