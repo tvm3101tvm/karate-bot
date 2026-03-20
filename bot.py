@@ -97,12 +97,32 @@ async def cmd_help(message: types.Message):
     await message.reply(help_text, parse_mode="HTML")
 
 # ---------------------------------------------------------
-# ВРЕМЕННЫЙ ОБРАБОТЧИК ДЛЯ ПОЛУЧЕНИЯ FILE_ID (можно закомментировать, если не нужен)
+# ВРЕМЕННЫЙ ОБРАБОТЧИК ДЛЯ ПОЛУЧЕНИЯ FILE_ID
 # ---------------------------------------------------------
-# @dp.message_handler(content_types=['photo', 'video', 'animation', 'voice', 'audio'])
-# async def get_file_id_handler(message: types.Message):
-#     ...
-
+@dp.message_handler(content_types=['photo', 'video', 'animation', 'voice', 'audio'])
+async def get_file_id_handler(message: types.Message):
+    print(f"Получено медиа типа {message.content_type}")
+    file_id = None
+    file_type = ""
+    if message.photo:
+        file_id = message.photo[-1].file_id
+        file_type = "фото"
+    elif message.video:
+        file_id = message.video.file_id
+        file_type = "видео"
+    elif message.animation:
+        file_id = message.animation.file_id
+        file_type = "GIF"
+    elif message.voice:
+        file_id = message.voice.file_id
+        file_type = "голосовое"
+    elif message.audio:
+        file_id = message.audio.file_id
+        file_type = "аудио"
+    else:
+        return
+    await message.reply(f"✅ {file_type} file_id:\n`{file_id}`")
+    print(f"Отправлен file_id для {file_type}")
 # ---------------------------------------------------------
 # БЛОК 2: НАВИГАЦИЯ И ПРОСМОТР ТЕХНИК
 # ---------------------------------------------------------
