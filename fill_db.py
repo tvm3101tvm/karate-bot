@@ -127,7 +127,7 @@ def main():
             category='kick',
             description='Удар ребром либо пяткой стопы.',
             video_path='file_id_видео_йоко',
-            gif_path='CgACAgIAAxkBAAIHHmm8lV_JTR9o6eml5ONA4Fv-RIqnAAI5oQACYE3gSeTBru8Rx85UOgQ',
+            gif_path='CgACAgIAAxkBAAIHIGm8lWxu56d3dRldsjHts-ibtNHWAAI_oQACYE3gSbpL9OtAIPUQOgQ',
             audio_path='CQACAgIAAxkBAAIEx2mwLz7gS5zFuwTk_OkqAphJjaA_AAJfnQAC_T14ST8IT1qOwdRHOgQ'
         ),
         Technique(
