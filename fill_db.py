@@ -13,7 +13,7 @@ def main():
             category='stance',
             description='Перенос веса на переднюю ногу.', 
             video_path='file_id_видео_дзенкуцу',  
-            gif_path='CgACAgIAAxkBAAIB1GmsjMU9Snt5M3Elpv281dvAIM1eAAJYmQAChPhoSSlre28D7jI7OgQ',
+            gif_path='CgACAgIAAxkBAAIHGGm8jq51-Ut4_I4Hboa6JNPJbAZmAAIxoQACYE3gSRjExR_L6_vpOgQ',
             audio_path='CQACAgIAAxkBAAIEx2mwLz7gS5zFuwTk_OkqAphJjaA_AAJfnQAC_T14ST8IT1qOwdRHOgQ'
         ),
         Technique(
@@ -42,7 +42,7 @@ def main():
             category='block',
             description='Для защиты головы.',
             video_path='file_id_видео_агэукэ',
-            gif_path='CgACAgIAAxkBAAIGyWm8HxdEXaejlXw1U6dafg78BTzCAAJnngAC_T14SaLSXpRJf8NjOgQ',
+            gif_path='CgACAgIAAxkBAAIHFGm8jRIx697Iqn1yms6ryt4gpm11AAIinQACMzzBSbuRbL8GUw-FOgQ',
             audio_path='CQACAgIAAxkBAAIEx2mwLz7gS5zFuwTk_OkqAphJjaA_AAJfnQAC_T14ST8IT1qOwdRHOgQ'
         ),
         Technique(
@@ -122,12 +122,12 @@ def main():
             audio_path='CQACAgIAAxkBAAIEx2mwLz7gS5zFuwTk_OkqAphJjaA_AAJfnQAC_T14ST8IT1qOwdRHOgQ'
         ),
         Technique(
-            name_ru='Удар ногой в сторону',
-            name_ja='Йоко-гери',
+            name_ru='Проникающий боковой удар ногой',
+            name_ja='Йоко-гери кекоми',
             category='kick',
-            description='Удар ребром стопы в сторону.',
+            description='Удар ребром либо пяткой стопы.',
             video_path='file_id_видео_йоко',
-            gif_path='BAACAgIAAxkBAAIBvWmseJI4-ZgYaJON_90r0ZKKl5L8AAKPmAAChPhoSYjPqjEPFiZlOgQ',
+            gif_path='CgACAgIAAxkBAAIHHmm8lV_JTR9o6eml5ONA4Fv-RIqnAAI5oQACYE3gSeTBru8Rx85UOgQ',
             audio_path='CQACAgIAAxkBAAIEx2mwLz7gS5zFuwTk_OkqAphJjaA_AAJfnQAC_T14ST8IT1qOwdRHOgQ'
         ),
         Technique(
@@ -136,7 +136,7 @@ def main():
             category='kick',
             description='Круговой удар с разворотом пяткой.',
             video_path='file_id_видео_урамаваши',
-            gif_path='BAACAgIAAxkBAAIBvWmseJI4-ZgYaJON_90r0ZKKl5L8AAKPmAAChPhoSYjPqjEPFiZlOgQ',
+            gif_path='CgACAgIAAxkBAAIHHGm8kt4VRQ5uWdotiHJvdfjbL30nAAI3oQACYE3gSfINlRzVvJeaOgQ',
             audio_path='CQACAgIAAxkBAAIEx2mwLz7gS5zFuwTk_OkqAphJjaA_AAJfnQAC_T14ST8IT1qOwdRHOgQ'
         ),
     ]
