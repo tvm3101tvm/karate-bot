@@ -97,11 +97,11 @@ async def cmd_help(message: types.Message):
     await message.reply(help_text, parse_mode="HTML")
 
 # ---------------------------------------------------------
-# ВРЕМЕННЫЙ ОБРАБОТЧИК ДЛЯ ПОЛУЧЕНИЯ FILE_ID (можно удалить после использования)
+# ВРЕМЕННЫЙ ОБРАБОТЧИК ДЛЯ ПОЛУЧЕНИЯ FILE_ID (можно закомментировать, если не нужен)
 # ---------------------------------------------------------
 # @dp.message_handler(content_types=['photo', 'video', 'animation', 'voice', 'audio'])
 # async def get_file_id_handler(message: types.Message):
-#     ... # (закомментирован, можно удалить)
+#     ...
 
 # ---------------------------------------------------------
 # БЛОК 2: НАВИГАЦИЯ И ПРОСМОТР ТЕХНИК
@@ -109,7 +109,6 @@ async def cmd_help(message: types.Message):
 
 @dp.callback_query_handler(lambda c: c.data == 'main_menu')
 async def callback_main_menu(callback_query: types.CallbackQuery):
-    await bot.answer_callback_query(callback_query.id)
     user_id = callback_query.from_user.id
     message = callback_query.message
     await bot.edit_message_text(
@@ -121,7 +120,6 @@ async def callback_main_menu(callback_query: types.CallbackQuery):
 
 @dp.callback_query_handler(lambda c: c.data == 'cat_kihon')
 async def callback_kihon(callback_query: types.CallbackQuery):
-    await bot.answer_callback_query(callback_query.id)
     user_id = callback_query.from_user.id
     message = callback_query.message
     await bot.send_message(
@@ -133,7 +131,6 @@ async def callback_kihon(callback_query: types.CallbackQuery):
 
 @dp.callback_query_handler(lambda c: c.data == 'cat_kata')
 async def callback_kata(callback_query: types.CallbackQuery):
-    await bot.answer_callback_query(callback_query.id)
     user_id = callback_query.from_user.id
     message = callback_query.message
     await bot.send_message(
@@ -145,7 +142,6 @@ async def callback_kata(callback_query: types.CallbackQuery):
 
 @dp.callback_query_handler(lambda c: c.data.startswith('cat_') and c.data not in ['cat_kihon', 'cat_kata'])
 async def callback_category(callback_query: types.CallbackQuery):
-    await bot.answer_callback_query(callback_query.id)
     data = callback_query.data
     user_id = callback_query.from_user.id
     message = callback_query.message
@@ -180,7 +176,6 @@ async def callback_category(callback_query: types.CallbackQuery):
 
 @dp.callback_query_handler(lambda c: c.data.startswith('tech_'))
 async def callback_tech(callback_query: types.CallbackQuery):
-    await bot.answer_callback_query(callback_query.id)
     data = callback_query.data
     user_id = callback_query.from_user.id
     message = callback_query.message
@@ -197,7 +192,6 @@ async def callback_tech(callback_query: types.CallbackQuery):
 
 @dp.callback_query_handler(lambda c: c.data.startswith('back_to_list_'))
 async def callback_back_to_list(callback_query: types.CallbackQuery):
-    await bot.answer_callback_query(callback_query.id)
     user_id = callback_query.from_user.id
     tech_id = int(callback_query.data.split('_')[3])
     tech = get_technique_by_id(tech_id)
@@ -222,7 +216,6 @@ async def callback_back_to_list(callback_query: types.CallbackQuery):
 
 @dp.callback_query_handler(lambda c: c.data.startswith('video_'))
 async def callback_video(callback_query: types.CallbackQuery):
-    await bot.answer_callback_query(callback_query.id)
     data = callback_query.data
     user_id = callback_query.from_user.id
     tech_id = int(data.split('_')[1])
@@ -239,6 +232,9 @@ async def callback_video(callback_query: types.CallbackQuery):
         supports_streaming=True
     )
 
+# ---------------------------------------------------------
+# Озвучивание названия техники (из основного интерфейса)
+# ---------------------------------------------------------
 @dp.callback_query_handler(lambda c: c.data.startswith('audio_') and not c.data.startswith('audio_feedback_'))
 async def callback_audio(callback_query: types.CallbackQuery):
     await bot.answer_callback_query(callback_query.id)
@@ -253,12 +249,26 @@ async def callback_audio(callback_query: types.CallbackQuery):
         await bot.send_message(user_id, "Аудио пока не добавлено")
 
 # ---------------------------------------------------------
+# Озвучивание названия техники после ответа в тесте
+# ---------------------------------------------------------
+@dp.callback_query_handler(lambda c: c.data.startswith('audio_feedback_'))
+async def callback_audio_feedback(callback_query: types.CallbackQuery):
+    await bot.answer_callback_query(callback_query.id)
+    user_id = callback_query.from_user.id
+    tech_id = int(callback_query.data.split('_')[2])
+    tech = get_technique_by_id(tech_id)
+
+    if tech.audio_path:
+        await bot.send_voice(user_id, tech.audio_path, caption=f"Произношение: {tech.name_ja}")
+    else:
+        await bot.send_message(user_id, "Аудио пока не добавлено")
+
+# ---------------------------------------------------------
 # БЛОК 3: ТЕСТИРОВАНИЕ
 # ---------------------------------------------------------
 
 @dp.callback_query_handler(lambda c: c.data == 'test_start')
 async def callback_test_start(callback_query: types.CallbackQuery):
-    await bot.answer_callback_query(callback_query.id)
     user_id = callback_query.from_user.id
     total_questions = 10
 
@@ -399,7 +409,6 @@ async def callback_next_question(callback_query: types.CallbackQuery):
 
 @dp.callback_query_handler(lambda c: c.data == 'test_cancel')
 async def callback_test_cancel(callback_query: types.CallbackQuery):
-    await bot.answer_callback_query(callback_query.id)
     user_id = callback_query.from_user.id
     try:
         await bot.delete_message(user_id, callback_query.message.message_id)
@@ -418,7 +427,6 @@ async def callback_test_cancel(callback_query: types.CallbackQuery):
 
 @dp.callback_query_handler(lambda c: c.data == 'recommend')
 async def callback_recommend(callback_query: types.CallbackQuery):
-    await bot.answer_callback_query(callback_query.id)
     user_id = callback_query.from_user.id
     recs = get_recommendations(user_id)
     if recs:
