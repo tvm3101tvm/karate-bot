@@ -69,7 +69,7 @@ def main():
             category='block',
             description='Блок снаружи внутрь (ладонью вниз).',
             video_path='file_id_видео_сотоукэ',
-            gif_path='CgмACAgIAAxkBAAIHRGm9W1J111jYKagPiH-J1-BfJOVNAAIIkwACYE3oSRCfIG9lh6sGOgQ',
+            gif_path='CgACAgIAAxkBAAIHRGm9W1J111jYKagPiH-J1-BfJOVNAAIIkwACYE3oSRCfIG9lh6sGOgQ',
             audio_path='CQACAgIAAxkBAAIEx2mwLz7gS5zFuwTk_OkqAphJjaA_AAJfnQAC_T14ST8IT1qOwdRHOgQ'
         ),
         Technique(
