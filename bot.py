@@ -27,9 +27,9 @@ dp.middleware.setup(LoggingMiddleware())
 
 user_test_state = {}
 
-# ---------------------------------------------------------
+
 # Вспомогательная функция отправки вопроса теста
-# ---------------------------------------------------------
+
 async def send_question(user_id, tech_id, question_num, total_questions):
     tech = get_technique_by_id(tech_id)
     await bot.send_animation(
@@ -46,9 +46,8 @@ async def send_question(user_id, tech_id, question_num, total_questions):
         reply_markup=test_options(tech, all_techs)
     )
 
-# ---------------------------------------------------------
-# БЛОК 1: КОМАНДЫ
-# ---------------------------------------------------------
+
+# КОМАНДЫ
 
 @dp.message_handler(commands=['start'])
 async def cmd_start(message: types.Message):
@@ -80,8 +79,8 @@ async def cmd_help(message: types.Message):
         "📚 <b>Помощь по боту для изучения каратэ</b>\n\n"
         "Этот бот поможет вам изучить базовые техники каратэ и подготовиться к аттестации.\n\n"
         "<b>Основные возможности:</b>\n"
-        "• Изучение стоек, блоков, ударов руками и ногами с GIF-анимацией и видео.\n"
-        "• Тест из 10 вопросов с выбором правильного названия техники (можно прервать в любой момент).\n"
+        "• Обучение с помощью GIF-анимации и видео.\n"
+        "• Тест из 10 вопросов с выбором правильного названия техники.\n"
         "• Персональные рекомендации на основе ваших ошибок.\n"
         "• Поиск по названию: просто напишите название техники (например, \"мае-гери\" или \"дзенкуцу дачи\").\n\n"
         "<b>Как пользоваться:</b>\n"
@@ -92,13 +91,13 @@ async def cmd_help(message: types.Message):
         "– Нажмите «Назад в список» чтобы вернуться к выбору.\n"
         "– Для запуска теста нажмите «Тест» в главном меню.\n"
         "– Рекомендации появятся после нескольких тестов.\n\n"
-        "Если у вас есть вопросы или предложения, пишите: @ваш_логин"
+        "Если у вас есть вопросы или предложения, пишите: @KarateForBeginnersHelp"
     )
     await message.reply(help_text, parse_mode="HTML")
 
-# ---------------------------------------------------------
+
 # ВРЕМЕННЫЙ ОБРАБОТЧИК ДЛЯ ПОЛУЧЕНИЯ FILE_ID
-# ---------------------------------------------------------
+
 @dp.message_handler(content_types=['photo', 'video', 'animation', 'voice', 'audio'])
 async def get_file_id_handler(message: types.Message):
     print(f"Получено медиа типа {message.content_type}")
@@ -123,9 +122,9 @@ async def get_file_id_handler(message: types.Message):
         return
     await message.reply(f"✅ {file_type} file_id:\n`{file_id}`")
     print(f"Отправлен file_id для {file_type}")
-# ---------------------------------------------------------
-# БЛОК 2: НАВИГАЦИЯ И ПРОСМОТР ТЕХНИК
-# ---------------------------------------------------------
+
+
+# НАВИГАЦИЯ И ПРОСМОТР ТЕХНИК
 
 @dp.callback_query_handler(lambda c: c.data == 'main_menu')
 async def callback_main_menu(callback_query: types.CallbackQuery):
@@ -144,7 +143,7 @@ async def callback_kihon(callback_query: types.CallbackQuery):
     message = callback_query.message
     await bot.send_message(
         user_id,
-        "Раздел «Кихон» находится в разработке. Здесь будут базовые комбинации и упражнения. Следите за обновлениями!",
+        "Раздел «Кихон» находится в разработке. Следите за обновлениями!",
         reply_markup=main_menu()
     )
     await bot.delete_message(user_id, message.message_id)
@@ -155,7 +154,7 @@ async def callback_kata(callback_query: types.CallbackQuery):
     message = callback_query.message
     await bot.send_message(
         user_id,
-        "Раздел «Ката» находится в разработке. Скоро здесь появятся видео и описания формальных комплексов.",
+        "Раздел «Ката» находится в разработке. Следите за обновлениями! ",
         reply_markup=main_menu()
     )
     await bot.delete_message(user_id, message.message_id)
@@ -252,9 +251,9 @@ async def callback_video(callback_query: types.CallbackQuery):
         supports_streaming=True
     )
 
-# ---------------------------------------------------------
-# Озвучивание названия техники (из основного интерфейса)
-# ---------------------------------------------------------
+
+# Озвучивание названия техники (интерфейс)
+
 @dp.callback_query_handler(lambda c: c.data.startswith('audio_') and not c.data.startswith('audio_feedback_'))
 async def callback_audio(callback_query: types.CallbackQuery):
     await bot.answer_callback_query(callback_query.id)
@@ -268,9 +267,9 @@ async def callback_audio(callback_query: types.CallbackQuery):
     else:
         await bot.send_message(user_id, "Аудио пока не добавлено")
 
-# ---------------------------------------------------------
-# Озвучивание названия техники после ответа в тесте
-# ---------------------------------------------------------
+
+# Озвучивание названия техники после в тесте
+
 @dp.callback_query_handler(lambda c: c.data.startswith('audio_feedback_'))
 async def callback_audio_feedback(callback_query: types.CallbackQuery):
     await bot.answer_callback_query(callback_query.id)
@@ -283,9 +282,9 @@ async def callback_audio_feedback(callback_query: types.CallbackQuery):
     else:
         await bot.send_message(user_id, "Аудио пока не добавлено")
 
-# ---------------------------------------------------------
-# БЛОК 3: ТЕСТИРОВАНИЕ
-# ---------------------------------------------------------
+
+# ТЕСТ
+
 
 @dp.callback_query_handler(lambda c: c.data == 'test_start')
 async def callback_test_start(callback_query: types.CallbackQuery):
@@ -441,9 +440,8 @@ async def callback_test_cancel(callback_query: types.CallbackQuery):
         reply_markup=main_menu()
     )
 
-# ---------------------------------------------------------
-# БЛОК 4: РЕКОМЕНДАЦИИ (callback)
-# ---------------------------------------------------------
+
+# РЕКОМЕНДАЦИИ 
 
 @dp.callback_query_handler(lambda c: c.data == 'recommend')
 async def callback_recommend(callback_query: types.CallbackQuery):
@@ -455,9 +453,8 @@ async def callback_recommend(callback_query: types.CallbackQuery):
         text = 'Пока нет статистики. Пройдите тест, чтобы получить рекомендации.'
     await bot.send_message(user_id, text, reply_markup=main_menu())
 
-# ---------------------------------------------------------
-# БЛОК 5: ТЕКСТОВЫЙ ПОИСК
-# ---------------------------------------------------------
+
+# ТЕКСТОВЫЙ ПОИСК
 
 @dp.message_handler()
 async def handle_text(message: types.Message):
@@ -480,9 +477,9 @@ async def handle_text(message: types.Message):
             reply_markup=main_menu()
         )
 
-# ---------------------------------------------------------
-# БЛОК 6: СЛУЖЕБНЫЕ ФУНКЦИИ И ЗАПУСК
-# ---------------------------------------------------------
+
+# СЛУЖЕБНЫЕ ФУНКЦИИ И ЗАПУСК
+
 
 async def set_commands(bot: Bot):
     commands = [
