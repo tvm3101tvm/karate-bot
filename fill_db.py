@@ -78,7 +78,7 @@ def main():
             category='block',
             description='Блок ребром ладони как лезвием ножа.',
             video_path='file_id_видео_шуто',
-            gif_path='BAACAgIAAxkBAAIBvWmseJI4-ZgYaJON_90r0ZKKl5L8AAKPmAAChPhoSYjPqjEPFiZlOgQ',
+            gif_path='CgACAgIAAxkBAAIHWGm9YNvAvtJWnlTPyAWE-kx2yAl0AAIyoQACYE3gSVyUloSD6x1mOgQ',
             audio_path='CQACAgIAAxkBAAIEx2mwLz7gS5zFuwTk_OkqAphJjaA_AAJfnQAC_T14ST8IT1qOwdRHOgQ'
         ),
 
