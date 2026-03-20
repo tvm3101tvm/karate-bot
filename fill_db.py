@@ -22,7 +22,7 @@ def main():
             category='stance',
             description='Стойка с широко расставленными ногами.',
             video_path='file_id_видео_киба',
-            gif_path='CgACAgIAAxkBAAIB1GmsjMU9Snt5M3Elpv281dvAIM1eAAJYmQAChPhoSSlre28D7jI7OgQ',
+          # gif_path='CgACAgIAAxkBAAIHSGm9W2N8JUrK47mqTn18WyEmcOFcAAKfkgACYE3oSZ4S4yhADOXnOgQ',
             audio_path='CQACAgIAAxkBAAIEx2mwLz7gS5zFuwTk_OkqAphJjaA_AAJfnQAC_T14ST8IT1qOwdRHOgQ'
         ),
         Technique(
@@ -51,7 +51,7 @@ def main():
             category='block',
             description='Для защиты паха и корпуса.',
             video_path='file_id_видео_гедан',
-            gif_path='BAACAgIAAxkBAAIBvWmseJI4-ZgYaJON_90r0ZKKl5L8AAKPmAAChPhoSYjPqjEPFiZlOgQ',
+            gif_path='CgACAgIAAxkBAAIHQmm9Uo0DoDsIGvXxldbFMehxH9xqAAKbkgACYE3oSU7R1t7WB20bOgQ',
             audio_path='CQACAgIAAxkBAAIEx2mwLz7gS5zFuwTk_OkqAphJjaA_AAJfnQAC_T14ST8IT1qOwdRHOgQ'
         ),
         Technique(
@@ -60,7 +60,7 @@ def main():
             category='block',
             description='Блок изнутри наружу (ладонью вверх).',
             video_path='file_id_видео_учиукэ',
-            gif_path='BAACAgIAAxkBAAIBvWmseJI4-ZgYaJON_90r0ZKKl5L8AAKPmAAChPhoSYjPqjEPFiZlOgQ',
+            gif_path='CgACAgIAAxkBAAIHRmm9W1wYLa9hJIIc3u3E2yuLzQ_MAAIHkwACYE3oSfoooOE6rc3kOgQ',
             audio_path='CQACAgIAAxkBAAIEx2mwLz7gS5zFuwTk_OkqAphJjaA_AAJfnQAC_T14ST8IT1qOwdRHOgQ'
         ),
         Technique(
@@ -89,7 +89,7 @@ def main():
             category='punch',
             description='Прямой удар рукой, разноимённый с впереди стоящей ногой.',
             video_path='file_id_видео_ойцуки',
-            gif_path='BAACAgIAAxkBAAIBvWmseJI4-ZgYaJON_90r0ZKKl5L8AAKPmAAChPhoSYjPqjEPFiZlOgQ',
+          # gif_path='BAACAgIAAxkBAAIBvWmseJI4-ZgYaJON_90r0ZKKl5L8AAKPmAAChPhoSYjPqjEPFiZlOgQ',
             audio_path='CQACAgIAAxkBAAIEx2mwLz7gS5zFuwTk_OkqAphJjaA_AAJfnQAC_T14ST8IT1qOwdRHOgQ'
         ),
         Technique(
@@ -98,7 +98,7 @@ def main():
             category='punch',
             description='Прямой удар рукой, одноимённый с впереди стоящей ногой',
             video_path='file_id_видео_гьякуцуки',
-            gif_path='BAACAgIAAxkBAAIBvWmseJI4-ZgYaJON_90r0ZKKl5L8AAKPmAAChPhoSYjPqjEPFiZlOgQ',
+          # gif_path='BAACAgIAAxkBAAIBvWmseJI4-ZgYaJON_90r0ZKKl5L8AAKPmAAChPhoSYjPqjEPFiZlOgQ',
             audio_path='CQACAgIAAxkBAAIEx2mwLz7gS5zFuwTk_OkqAphJjaA_AAJfnQAC_T14ST8IT1qOwdRHOgQ'
         ),
 
@@ -109,7 +109,7 @@ def main():
             category='kick',
             description='Удар ногой вперёд.',
             video_path='file_id_видео_маэгэри',
-            gif_path='BAACAgIAAxkBAAIBvWmseJI4-ZgYaJON_90r0ZKKl5L8AAKPmAAChPhoSYjPqjEPFiZlOgQ',
+            gif_path='CgACAgIAAxkBAAIHSGm9W2N8JUrK47mqTn18WyEmcOFcAAKfkgACYE3oSZ4S4yhADOXnOgQ',
             audio_path='CQACAgIAAxkBAAIEx2mwLz7gS5zFuwTk_OkqAphJjaA_AAJfnQAC_T14ST8IT1qOwdRHOgQ'
         ),
         Technique(
@@ -118,7 +118,7 @@ def main():
             category='kick',
             description='Удар ногой по кругу.',
             video_path='file_id_видео_маваши',
-            gif_path='BAACAgIAAxkBAAIBvWmseJI4-ZgYaJON_90r0ZKKl5L8AAKPmAAChPhoSYjPqjEPFiZlOgQ',
+          # gif_path='BAACAgIAAxkBAAIBvWmseJI4-ZgYaJON_90r0ZKKl5L8AAKPmAAChPhoSYjPqjEPFiZlOgQ',
             audio_path='CQACAgIAAxkBAAIEx2mwLz7gS5zFuwTk_OkqAphJjaA_AAJfnQAC_T14ST8IT1qOwdRHOgQ'
         ),
         Technique(
