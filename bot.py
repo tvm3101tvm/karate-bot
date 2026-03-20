@@ -97,35 +97,11 @@ async def cmd_help(message: types.Message):
     await message.reply(help_text, parse_mode="HTML")
 
 # ---------------------------------------------------------
-# ВРЕМЕННЫЙ ОБРАБОТЧИК ДЛЯ ПОЛУЧЕНИЯ FILE_ID
-# (после получения всех нужных file_id его можно удалить или закомментировать)
+# ВРЕМЕННЫЙ ОБРАБОТЧИК ДЛЯ ПОЛУЧЕНИЯ FILE_ID (можно закомментировать, если не нужен)
 # ---------------------------------------------------------
-@dp.message_handler(content_types=['photo', 'video', 'animation', 'voice', 'audio'])
-async def get_file_id_handler(message: types.Message):
-    print(f"Получено медиа типа {message.content_type}")
-    file_id = None
-    file_type = ""
-
-    if message.photo:
-        file_id = message.photo[-1].file_id
-        file_type = "фото"
-    elif message.video:
-        file_id = message.video.file_id
-        file_type = "видео"
-    elif message.animation:
-        file_id = message.animation.file_id
-        file_type = "GIF"
-    elif message.voice:
-        file_id = message.voice.file_id
-        file_type = "голосовое"
-    elif message.audio:
-        file_id = message.audio.file_id
-        file_type = "аудио"
-    else:
-        return
-
-    await message.reply(f"✅ {file_type} file_id:\n`{file_id}`")
-    print(f"Отправлен file_id для {file_type}")
+# @dp.message_handler(content_types=['photo', 'video', 'animation', 'voice', 'audio'])
+# async def get_file_id_handler(message: types.Message):
+#     ...
 
 # ---------------------------------------------------------
 # БЛОК 2: НАВИГАЦИЯ И ПРОСМОТР ТЕХНИК
@@ -133,7 +109,6 @@ async def get_file_id_handler(message: types.Message):
 
 @dp.callback_query_handler(lambda c: c.data == 'main_menu')
 async def callback_main_menu(callback_query: types.CallbackQuery):
-    print("!!! callback_main_menu ВЫЗВАН")
     user_id = callback_query.from_user.id
     message = callback_query.message
     await bot.edit_message_text(
@@ -167,7 +142,6 @@ async def callback_kata(callback_query: types.CallbackQuery):
 
 @dp.callback_query_handler(lambda c: c.data.startswith('cat_') and c.data not in ['cat_kihon', 'cat_kata'])
 async def callback_category(callback_query: types.CallbackQuery):
-    print(f"!!! callback_category ВЫЗВАН с данными: {callback_query.data}")
     data = callback_query.data
     user_id = callback_query.from_user.id
     message = callback_query.message
@@ -258,8 +232,12 @@ async def callback_video(callback_query: types.CallbackQuery):
         supports_streaming=True
     )
 
+# ---------------------------------------------------------
+# Озвучивание названия техники (из основного интерфейса)
+# ---------------------------------------------------------
 @dp.callback_query_handler(lambda c: c.data.startswith('audio_') and not c.data.startswith('audio_feedback_'))
 async def callback_audio(callback_query: types.CallbackQuery):
+    await bot.answer_callback_query(callback_query.id)
     data = callback_query.data
     user_id = callback_query.from_user.id
     tech_id = int(data.split('_')[1])
@@ -268,7 +246,22 @@ async def callback_audio(callback_query: types.CallbackQuery):
     if tech.audio_path:
         await bot.send_voice(user_id, tech.audio_path, caption=f"Произношение: {tech.name_ja}")
     else:
-        await bot.answer_callback_query(callback_query.id, text="Аудио пока не добавлено", show_alert=False)
+        await bot.send_message(user_id, "Аудио пока не добавлено")
+
+# ---------------------------------------------------------
+# Озвучивание названия техники после ответа в тесте
+# ---------------------------------------------------------
+@dp.callback_query_handler(lambda c: c.data.startswith('audio_feedback_'))
+async def callback_audio_feedback(callback_query: types.CallbackQuery):
+    await bot.answer_callback_query(callback_query.id)
+    user_id = callback_query.from_user.id
+    tech_id = int(callback_query.data.split('_')[2])
+    tech = get_technique_by_id(tech_id)
+
+    if tech.audio_path:
+        await bot.send_voice(user_id, tech.audio_path, caption=f"Произношение: {tech.name_ja}")
+    else:
+        await bot.send_message(user_id, "Аудио пока не добавлено")
 
 # ---------------------------------------------------------
 # БЛОК 3: ТЕСТИРОВАНИЕ
@@ -481,7 +474,6 @@ async def set_commands(bot: Bot):
     await bot.set_my_commands(commands)
 
 async def on_startup(dp):
-    print("!!! on_startup ВЫПОЛНЯЕТСЯ")
     await bot.delete_webhook(drop_pending_updates=True)
     await set_commands(bot)
     session = Session()
