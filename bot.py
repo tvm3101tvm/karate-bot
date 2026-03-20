@@ -52,7 +52,7 @@ async def send_question(user_id, tech_id, question_num, total_questions):
 @dp.message_handler(commands=['start'])
 async def cmd_start(message: types.Message):
     await message.answer(
-        'Добро пожаловать в бота для изучения каратэ! Выберите раздел:',
+        'Выберите раздел:',
         reply_markup=main_menu()
     )
 
