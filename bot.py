@@ -16,8 +16,6 @@ from database import (
 from keyboards import main_menu, test_options, technique_keyboard, techniques_menu
 from utils import get_next_test_technique, get_recommendations
 
-print(f"Python version: {sys.version}")
-print(f"aiogram version: {aiogram.__version__}")
 
 logging.basicConfig(level=logging.INFO)
 
@@ -95,7 +93,23 @@ async def cmd_help(message: types.Message):
     )
     await message.reply(help_text, parse_mode="HTML")
 
+@dp.message_handler(commands=['stats'])
+async def cmd_stats(message: types.Message):
+    user_id = message.from_user.id
+    session = Session()
+    stats = session.query(UserProgress).filter_by(user_id=user_id).all()
+    if not stats:
+        await message.reply("Статистика пока пуста. Пройдите тест.")
+    else:
+        text = "Ваша статистика:\n"
+        for s in stats:
+            tech = session.get(Technique, s.technique_id)
+            tech_name = tech.name_ja if tech else str(s.technique_id)
+            text += f"{tech_name}: {s.correct_attempts} из {s.total_attempts} правильно\n"
+        await message.reply(text)
+    session.close()
 
+    
 # ВРЕМЕННЫЙ ОБРАБОТЧИК ДЛЯ ПОЛУЧЕНИЯ FILE_ID
 
 @dp.message_handler(content_types=['photo', 'video', 'animation', 'voice', 'audio'])
