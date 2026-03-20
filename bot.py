@@ -11,7 +11,7 @@ from aiohttp import ClientTimeout
 from config import BOT_TOKEN
 from database import (
     get_techniques_by_category, get_technique_by_id, update_progress,
-    Session, Technique
+    Session, Technique, UserProgress
 )
 from keyboards import main_menu, test_options, technique_keyboard, techniques_menu
 from utils import get_next_test_technique, get_recommendations
@@ -109,7 +109,7 @@ async def cmd_stats(message: types.Message):
         await message.reply(text)
     session.close()
 
-    
+
 # ВРЕМЕННЫЙ ОБРАБОТЧИК ДЛЯ ПОЛУЧЕНИЯ FILE_ID
 
 @dp.message_handler(content_types=['photo', 'video', 'animation', 'voice', 'audio'])
