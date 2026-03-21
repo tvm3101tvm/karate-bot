@@ -22,7 +22,7 @@ def main():
             category='stance',
             description='Стойка с широко расставленными ногами.',
             video_path='file_id_видео_киба',
-            gif_path='CgACAgIAAxkBAAIHSGm9W2N8JUrK47mqTn18WyEmcOFcAAKfkgACYE3oSZ4S4yhADOXnOgQ',
+            gif_path='CgACAgIAAxkBAAIKa2m-tbcx4K21alumj6Zm7VPXZVCDAAIgnQACoSL5SRiL5jeLB1wlOgQ',
             audio_path='CQACAgIAAxkBAAIH_Gm9foPx5i6R1XhINexhchTrgGOrAALUlAACYE3oSZq-9Wqw2nw1OgQ'
         ),
         Technique(
@@ -51,7 +51,7 @@ def main():
             category='block',
             description='Для защиты паха и корпуса.',
             video_path='file_id_видео_гедан',
-            gif_path='CgACAgIAAxkBAAIHQmm9Uo0DoDsIGvXxldbFMehxH9xqAAKbkgACYE3oSU7R1t7WB20bOgQ',
+            gif_path='CgACAgIAAxkBAAIKaWm-tZIdYLUDpzmdtyzUmqLCu2CuAAIbnQACoSL5SSN2QIX7oSuYOgQ',
             audio_path='CQACAgIAAxkBAAIIAmm9foPTEcLup_S_-QXLXHgolRYaAALZlAACYE3oSW7ax3HmIzyxOgQ'
         ),
         Technique(
@@ -89,7 +89,7 @@ def main():
             category='punch',
             description='Прямой удар рукой, разноимённый с впереди стоящей ногой.',
             video_path='file_id_видео_ойцуки',
-            gif_path='BAACAgIAAxkBAAIBvWmseJI4-ZgYaJON_90r0ZKKl5L8AAKPmAAChPhoSYjPqjEPFiZlOgQ',
+            gif_path='CgACAgIAAxkBAAIKZ2m-tWuvf5BEZShIk6O6VuZuDhZqAAIZnQACoSL5SfSkbrGNnk0rOgQ',
             audio_path='CQACAgIAAxkBAAIICWm9foN59AF9mJRLaD7CYJt3_OD1AALXlAACYE3oSfMloLbHvW7mOgQ'
         ),
         Technique(
@@ -98,7 +98,7 @@ def main():
             category='punch',
             description='Прямой удар рукой, одноимённый с впереди стоящей ногой',
             video_path='file_id_видео_гьякуцуки',
-            gif_path='BAACAgIAAxkBAAIBvWmseJI4-ZgYaJON_90r0ZKKl5L8AAKPmAAChPhoSYjPqjEPFiZlOgQ',
+            gif_path='CgACAgIAAxkBAAIKZWm-tUUdB5iPBp8YpkUincGoYxsuAAIXnQACoSL5SfIJ_GReGM_GOgQ',
             audio_path='CQACAgIAAxkBAAIIBGm9foMmfnGRuJyf6HhP2mwQFe9bAALclAACYE3oSQPFTkbDOVfGOgQ'
         ),
 
@@ -118,7 +118,7 @@ def main():
             category='kick',
             description='Удар ногой по кругу.',
             video_path='file_id_видео_маваши',
-            gif_path='BAACAgIAAxkBAAIBvWmseJI4-ZgYaJON_90r0ZKKl5L8AAKPmAAChPhoSYjPqjEPFiZlOgQ',
+            gif_path='BAACAgIAAxkBAAIKbWm-td0TG2Jglp9rZ3C9cPDHLaI4AAIjnQACoSL5SdylM688GQEJOgQ',
             audio_path='CQACAgIAAxkBAAIIBmm9foOHCf2bWZ_a08mvZs75ZOz-AALWlAACYE3oSRnBLex_vdtqOgQ'
         ),
         Technique(
