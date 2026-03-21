@@ -118,7 +118,7 @@ def main():
             category='kick',
             description='Удар ногой по кругу.',
             video_path='file_id_видео_маваши',
-            gif_path='BAACAgIAAxkBAAIKbWm-td0TG2Jglp9rZ3C9cPDHLaI4AAIjnQACoSL5SdylM688GQEJOgQ',
+            gif_path='CgACAgIAAxkBAAIKfGm-3mNEzXizKjFOIIsAAQJCN0_9KwACbJ8AAqEi-UnMnoC3v6gSFjoE',
             audio_path='CQACAgIAAxkBAAIIBmm9foOHCf2bWZ_a08mvZs75ZOz-AALWlAACYE3oSRnBLex_vdtqOgQ'
         ),
         Technique(
