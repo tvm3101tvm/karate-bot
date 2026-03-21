@@ -32,7 +32,7 @@ def main():
             description='Перенос веса на заднюю ногу.',
             video_path='BAACAgIAAxkBAAIGyGm8HZeIBMPe9EEkc0KpAqCc7pppAALKmQACbbNRSRqCOqCB_rM6OgQ',
             gif_path='CgACAgIAAxkBAAIGyWm8HxdEXaejlXw1U6dafg78BTzCAAJnngAC_T14SaLSXpRJf8NjOgQ',
-            audio_path='CQACAgIAAxkBAAIH_mm9foPYoG6mjrZvZ0MdQMHmCla5AALRlAACYE3oSU1lCXZ0gDA3OgQ'
+            audio_path=''
         ),
 
         
