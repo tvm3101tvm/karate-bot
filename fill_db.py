@@ -30,7 +30,7 @@ def main():
             name_ja='Кокуцу дачи',
             category='stance',
             description='Перенос веса на заднюю ногу.',
-            video_path='BAACAgIAAxkBAAIGyGm8HZeIBMPe9EEkc0KpAqCc7pppAALKmQACbbNRSRqCOqCB_rM6OgQ',
+            video_path='BAACAgIAAxkBAAILsmnAUZzgobYVSmAcpG-Ns6FT5lDVAAImmQACn5EBSuogm5vAUxqUOgQ',
             gif_path='CgACAgIAAxkBAAIGyWm8HxdEXaejlXw1U6dafg78BTzCAAJnngAC_T14SaLSXpRJf8NjOgQ',
             audio_path=''
         ),
