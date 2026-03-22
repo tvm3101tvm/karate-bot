@@ -13,7 +13,7 @@ def main():
             category='stance',
             description='Перенос веса на переднюю ногу.', 
             video_path='file_id_видео_дзенкуцу',  
-            gif_path='CgACAgIAAxkBAAIHGGm8jq51-Ut4_I4Hboa6JNPJbAZmAAIxoQACYE3gSRjExR_L6_vpOgQ',
+            gif_path='CgACAgIAAxkBAAILtGnAWAzN8IZi_uqY-LDyS1-Lnin9AAKBmwACMzzBSbvETbwGrVrQOgQ',
             audio_path='CQACAgIAAxkBAAIIiGm9k2Owlb-pBXd9XvBmckMOv9DZAALclQACYE3oSZHb_aKK3ZOqOgQ'
         ),
         Technique(
