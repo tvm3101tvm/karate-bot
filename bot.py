@@ -500,6 +500,7 @@ async def set_commands(bot: Bot):
         BotCommand(command="start", description="Запустить бота"),
         BotCommand(command="menu", description="Главное меню"),
         BotCommand(command="recommend", description="Рекомендации"),
+        BotCommand(command="stats", description="Моя статистика"),
         BotCommand(command="help", description="Помощь"),
     ]
     await bot.set_my_commands(commands)
