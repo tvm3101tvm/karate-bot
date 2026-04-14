@@ -13,8 +13,8 @@ def main():
             category='stance',
             description='Перенос веса на переднюю ногу.', 
             video_path='file_id_видео_дзенкуцу',  
-            gif_path='CgACAgIAAxkBAAILtGnAWAzN8IZi_uqY-LDyS1-Lnin9AAKBmwACMzzBSbvETbwGrVrQOgQ',
-            audio_path='CQACAgIAAxkBAAIIiGm9k2Owlb-pBXd9XvBmckMOv9DZAALclQACYE3oSZHb_aKK3ZOqOgQ'
+            gif_path='CgACAgIAAyEFAATfMFtyAAMEad6QlHiRkApUL_gSAAGYk8kGKZxfAAKBmwACMzzBSbAP_uNUWtV0OwQ',
+            audio_path='CQACAgIAAyEFAATfMFtyAAMVad6QlI6EJBeI5A4nIUNAYaSvVg8AAtCUAAJgTehJIqfhDxtXts47BA'
         ),
         Technique(
             name_ru='Стойка всадника',
@@ -22,17 +22,17 @@ def main():
             category='stance',
             description='Стойка с широко расставленными ногами.',
             video_path='file_id_видео_киба',
-            gif_path='CgACAgIAAxkBAAIKa2m-tbcx4K21alumj6Zm7VPXZVCDAAIgnQACoSL5SRiL5jeLB1wlOgQ',
-            audio_path='CQACAgIAAxkBAAIH_Gm9foPx5i6R1XhINexhchTrgGOrAALUlAACYE3oSZq-9Wqw2nw1OgQ'
+            gif_path='CgACAgIAAyEFAATfMFtyAAMKad6QlGJKNE59S4gnXgvzh8KQopsAAiCdAAKhIvlJNs_h0gKqJzg7BA',
+            audio_path='CQACAgIAAyEFAATfMFtyAAMSad6QlEOtdeCHGORpDhD3dGOzzJkAAtSUAAJgTehJP9h0YnVFgAM7BA'
         ),
         Technique(
             name_ru='Задняя стойка',
             name_ja='Кокуцу дачи',
             category='stance',
             description='Перенос веса на заднюю ногу.',
-            video_path='BAACAgIAAxkBAAILsmnAUZzgobYVSmAcpG-Ns6FT5lDVAAImmQACn5EBSuogm5vAUxqUOgQ',
-            gif_path='CgACAgIAAxkBAAIGyWm8HxdEXaejlXw1U6dafg78BTzCAAJnngAC_T14SaLSXpRJf8NjOgQ',
-            audio_path=''
+            video_path='BAACAgIAAyEFAATfMFtyAAMCad5s0aRPLjhXZCb2zj1om4Ts01oAAiaZAAKfkQFKplIJ7Akvfk07BA',
+            gif_path='CgACAgIAAyEFAATfMFtyAAMDad6QlCuEEw3vQhhlTwFXgIm6DfUAAmeeAAL9PXhJklz4NTp2xB07BA',
+            audio_path='CQACAgIAAyEFAATfMFtyAAMUad6QlNFfSIMiZv1Gwz3Y4boxN6YAAtGUAAJgTehJlUWg57WZ6zA7BA'
         ),
 
         
@@ -42,8 +42,8 @@ def main():
             category='block',
             description='Для защиты головы.',
             video_path='file_id_видео_агэукэ',
-            gif_path='CgACAgIAAxkBAAIHFGm8jRIx697Iqn1yms6ryt4gpm11AAIinQACMzzBSbuRbL8GUw-FOgQ',
-            audio_path='CQACAgIAAxkBAAIIB2m9foOgYyj4jr1HisxnCdXuLI-8AALblAACYE3oSb6T7emuYXcYOgQ'
+            gif_path='CgACAgIAAyEFAATfMFtyAAMFad6QlC1n88xWYfZkgwf8gSawP_wAAiKdAAIzPMFJIm7-lXiyKjM7BA',
+            audio_path='CQACAgIAAyEFAATfMFtyAAMdad6QlNcAAdmfEQKYlwVrRO6U85TOAALblAACYE3oSR_-XJbTLmGKOwQ'
         ),
         Technique(
             name_ru='Нижний блок',
@@ -51,8 +51,8 @@ def main():
             category='block',
             description='Для защиты паха и корпуса.',
             video_path='file_id_видео_гедан',
-            gif_path='CgACAgIAAxkBAAIKaWm-tZIdYLUDpzmdtyzUmqLCu2CuAAIbnQACoSL5SSN2QIX7oSuYOgQ',
-            audio_path='CQACAgIAAxkBAAIIAmm9foPTEcLup_S_-QXLXHgolRYaAALZlAACYE3oSW7ax3HmIzyxOgQ'
+            gif_path='CgACAgIAAyEFAATfMFtyAAMRad6QlM0ZUybZLWhnpWOQUCulAR8AAnG0AAIiQ_BKzHJcN9enOkY7BA',
+            audio_path='CQACAgIAAyEFAATfMFtyAAMYad6QlBYKxJRq7NTOgAI1NrHbnq4AAtmUAAJgTehJRceQfYGIG8s7BA'
         ),
         Technique(
             name_ru='Внутренний блок',
@@ -60,8 +60,8 @@ def main():
             category='block',
             description='Блок изнутри наружу (ладонью вверх).',
             video_path='file_id_видео_учиукэ',
-            gif_path='CgACAgIAAxkBAAIHRmm9W1wYLa9hJIIc3u3E2yuLzQ_MAAIHkwACYE3oSfoooOE6rc3kOgQ',
-            audio_path='CQACAgIAAxkBAAIIAAFpvX6Dgrk1JRJCUxfxMRtDmZhmxAAC05QAAmBN6ElHWa693cjJizoE'
+            gif_path='CgACAgIAAyEFAATfMFtyAAMIad6QlGofjxqnsueA31uCSYVy_vcAAgeTAAJgTehJkgABnyy_SMjlOwQ',
+            audio_path='CQACAgIAAyEFAATfMFtyAAMWad6QlGzIJNWPkVYnv18-hLLl1EMAAtOUAAJgTehJJnb9O935XdU7BA'
         ),
         Technique(
             name_ru='Внешний блок',
@@ -69,8 +69,8 @@ def main():
             category='block',
             description='Блок снаружи внутрь (ладонью вниз).',
             video_path='file_id_видео_сотоукэ',
-            gif_path='CgACAgIAAxkBAAIHRGm9W1J111jYKagPiH-J1-BfJOVNAAIIkwACYE3oSRCfIG9lh6sGOgQ',
-            audio_path='CQACAgIAAxkBAAIH_Wm9foNBbeVnw18LF1QxAQtVsvMnAALPlAACYE3oSc2_CkPyXt2wOgQ'
+            gif_path='CgACAgIAAyEFAATfMFtyAAMJad6QlPMxasRPtbAHioe8SbQtHJ4AAgiTAAJgTehJyJI3rM5xCZE7BA',
+            audio_path='CQACAgIAAyEFAATfMFtyAAMTad6QlBLVzcMHwrZ1Ism0C8RQ0UIAAs-UAAJgTehJgcYTEkZ18lg7BA'
         ),
         Technique(
             name_ru='Блок ребром ладони',
@@ -78,8 +78,8 @@ def main():
             category='block',
             description='Блок ребром ладони как лезвием ножа.',
             video_path='file_id_видео_шуто',
-            gif_path='CgACAgIAAxkBAAIHWGm9YNvAvtJWnlTPyAWE-kx2yAl0AAIyoQACYE3gSVyUloSD6x1mOgQ',
-            audio_path='CQACAgIAAxkBAAIICGm9foPIAYmXaL6TkS9B6VL3YREkAALVlAACYE3oSVRx_1dGB2-rOgQ'
+            gif_path='CgACAgIAAyEFAATfMFtyAAMGad6QlLcQlx903hdQwAyWZIWu0QQAAjKhAAJgTeBJFH6NJWFayoc7BA',
+            audio_path='CQACAgIAAyEFAATfMFtyAAMead6QlGq6I4acFFg5xeKuL-50ngoAAtWUAAJgTehJJ9P3G9mcKG47BA'
         ),
 
         
@@ -89,8 +89,8 @@ def main():
             category='punch',
             description='Прямой удар рукой, разноимённый с впереди стоящей ногой.',
             video_path='file_id_видео_ойцуки',
-            gif_path='CgACAgIAAxkBAAIKZ2m-tWuvf5BEZShIk6O6VuZuDhZqAAIZnQACoSL5SfSkbrGNnk0rOgQ',
-            audio_path='CQACAgIAAxkBAAIICWm9foN59AF9mJRLaD7CYJt3_OD1AALXlAACYE3oSfMloLbHvW7mOgQ'
+            gif_path='CgACAgIAAyEFAATfMFtyAAMLad6QlF3KhE_m7_f_5z_X2EhGrwADHrQAAiJD8EqnlzYtlTk2LzsE',
+            audio_path='CQACAgIAAyEFAATfMFtyAAMfad6QlCBUtjCVrhgvd9LMKAyraI8AAteUAAJgTehJnznbwyFDa5A7BA'
         ),
         Technique(
             name_ru='Прямой удар (одноименный)',
@@ -98,8 +98,8 @@ def main():
             category='punch',
             description='Прямой удар рукой, одноимённый с впереди стоящей ногой',
             video_path='file_id_видео_гьякуцуки',
-            gif_path='CgACAgIAAxkBAAIKZWm-tUUdB5iPBp8YpkUincGoYxsuAAIXnQACoSL5SfIJ_GReGM_GOgQ',
-            audio_path='CQACAgIAAxkBAAIIBGm9foMmfnGRuJyf6HhP2mwQFe9bAALclAACYE3oSQPFTkbDOVfGOgQ'
+            gif_path='CgACAgIAAyEFAATfMFtyAAMMad6QlMHNtVpAEcBFiIIY3HtxszoAAiO0AAIiQ_BK1283zJeO7SQ7BA',
+            audio_path='CQACAgIAAyEFAATfMFtyAAMaad6QlKnm5S5Vc8hNW93z6SQ5n6sAAtyUAAJgTehJlEWl7RNI85U7BA'
         ),
 
         
@@ -109,8 +109,8 @@ def main():
             category='kick',
             description='Удар ногой вперёд.',
             video_path='file_id_видео_маэгэри',
-            gif_path='CgACAgIAAxkBAAIHSGm9W2N8JUrK47mqTn18WyEmcOFcAAKfkgACYE3oSZ4S4yhADOXnOgQ',
-            audio_path='CQACAgIAAxkBAAIIAWm9foNvJBVidGj6HgpvSll0QBgOAALalAACYE3oSZp_NOubXzn4OgQ'
+            gif_path='CgACAgIAAyEFAATfMFtyAAMPad6QlBMetmZqttFtyfxujxH18_AAAp-SAAJgTehJAaIrXwglaX87BA',
+            audio_path='CQACAgIAAyEFAATfMFtyAAMXad6QlIzfYISzh0S0E93OzZLg4jEAAtqUAAJgTehJORkBPL21akI7BA'
         ),
         Technique(
             name_ru='Круговой удар ногой',
@@ -118,8 +118,8 @@ def main():
             category='kick',
             description='Удар ногой по кругу.',
             video_path='file_id_видео_маваши',
-            gif_path='CgACAgIAAxkBAAIKfGm-3mNEzXizKjFOIIsAAQJCN0_9KwACbJ8AAqEi-UnMnoC3v6gSFjoE',
-            audio_path='CQACAgIAAxkBAAIIBmm9foOHCf2bWZ_a08mvZs75ZOz-AALWlAACYE3oSRnBLex_vdtqOgQ'
+            gif_path='CgACAgIAAyEFAATfMFtyAAMQad6QlF9gCUCJUErnlVu_K9Hw6KsAAmyfAAKhIvlJFhiJ3AIjjDc7BA',
+            audio_path='CQACAgIAAyEFAATfMFtyAAMcad6QlFtrd7oGqjmKlkVs4Y8FNsMAAtaUAAJgTehJzB5I6L1N9uk7BA'
         ),
         Technique(
             name_ru='Проникающий боковой удар ногой',
@@ -127,8 +127,8 @@ def main():
             category='kick',
             description='Удар ребром либо пяткой стопы.',
             video_path='file_id_видео_йоко',
-            gif_path='CgACAgIAAxkBAAIHIGm8lWxu56d3dRldsjHts-ibtNHWAAI_oQACYE3gSbpL9OtAIPUQOgQ',
-            audio_path='CQACAgIAAxkBAAIIA2m9foN7kwvzPxVmn_SEXIPHYfwbAALSlAACYE3oScTXJ9Xr-C0qOgQ'
+            gif_path='CgACAgIAAyEFAATfMFtyAAMOad6QlGATQL8ue_qkFNpQeOxGnqMAAj-hAAJgTeBJT0Me1uZLa7g7BA',
+            audio_path='CQACAgIAAyEFAATfMFtyAAMZad6QlLIJONwc8_x-Pt7aijYk9A8AAtKUAAJgTehJKW7EIK4v4IM7BA'
         ),
         Technique(
             name_ru='Обратный круговой',
@@ -136,8 +136,8 @@ def main():
             category='kick',
             description='Круговой удар с разворотом пяткой.',
             video_path='file_id_видео_урамаваши',
-            gif_path='CgACAgIAAxkBAAIHHGm8kt4VRQ5uWdotiHJvdfjbL30nAAI3oQACYE3gSfINlRzVvJeaOgQ',
-            audio_path='CQACAgIAAxkBAAIIBWm9foMIfnRUys7pomg8VvV3tU8IAALYlAACYE3oSTxYu6ict1zlOgQ'
+            gif_path='CgACAgIAAyEFAATfMFtyAAMNad6QlEICEqPCPMghXtAqPRb0QBMAAjehAAJgTeBJHTa8x0AKlck7BA',
+            audio_path='CQACAgIAAyEFAATfMFtyAAMbad6QlPgSgX7tGxV_-ZsRYtkLwpMAAtiUAAJgTehJIFFRUo9P8dQ7BA'
         ),
     ]
 
