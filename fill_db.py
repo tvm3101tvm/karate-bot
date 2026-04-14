@@ -89,8 +89,8 @@ def main():
             category='punch',
             description='Прямой удар рукой, разноимённый с впереди стоящей ногой.',
             video_path='file_id_видео_ойцуки',
-            gif_path='CgACAgIAAyEFAATfMFtyAAMLad6QlF3KhE_m7_f_5z_X2EhGrwADHrQAAiJD8EqnlzYtlTk2LzsE',
-            audio_path='CQACAgIAAyEFAATfMFtyAAMfad6QlCBUtjCVrhgvd9LMKAyraI8AAteUAAJgTehJnznbwyFDa5A7BA'
+            gif_path='CgACAgIAAyEFAATfMFtyAAMMad6QlMHNtVpAEcBFiIIY3HtxszoAAiO0AAIiQ_BK1283zJeO7SQ7BA',
+            audio_path='CQACAgIAAyEFAATfMFtyAAMaad6QlKnm5S5Vc8hNW93z6SQ5n6sAAtyUAAJgTehJlEWl7RNI85U7BA'
         ),
         Technique(
             name_ru='Прямой удар (одноименный)',
@@ -98,8 +98,8 @@ def main():
             category='punch',
             description='Прямой удар рукой, одноимённый с впереди стоящей ногой',
             video_path='file_id_видео_гьякуцуки',
-            gif_path='CgACAgIAAyEFAATfMFtyAAMMad6QlMHNtVpAEcBFiIIY3HtxszoAAiO0AAIiQ_BK1283zJeO7SQ7BA',
-            audio_path='CQACAgIAAyEFAATfMFtyAAMaad6QlKnm5S5Vc8hNW93z6SQ5n6sAAtyUAAJgTehJlEWl7RNI85U7BA'
+            gif_path='CgACAgIAAyEFAATfMFtyAAMLad6QlF3KhE_m7_f_5z_X2EhGrwADHrQAAiJD8EqnlzYtlTk2LzsE',
+            audio_path='CQACAgIAAyEFAATfMFtyAAMfad6QlCBUtjCVrhgvd9LMKAyraI8AAteUAAJgTehJnznbwyFDa5A7BA'
         ),
 
         
