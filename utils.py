@@ -29,15 +29,14 @@ def get_next_test_technique(user_id):
     return chosen
 
 def get_recommendations(user_id, limit=3):
-    """Возвращает список техник, в которых пользователь чаще всего ошибается."""
     session = Session()
     progresses = session.query(UserProgress).filter_by(user_id=user_id).all()
     recommendations = []
     for p in progresses:
         if p.total_attempts > 0:
             error_rate = (p.total_attempts - p.correct_attempts) / p.total_attempts
-            recommendations.append((p.technique_id, error_rate))
-    # Сортируем по убыванию ошибок
+            if error_rate > 0:   # показывать только техники с ошибками
+                recommendations.append((p.technique_id, error_rate))
     recommendations.sort(key=lambda x: x[1], reverse=True)
     tech_ids = [r[0] for r in recommendations[:limit]]
     techs = session.query(Technique).filter(Technique.id.in_(tech_ids)).all()
