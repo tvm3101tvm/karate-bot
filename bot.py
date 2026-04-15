@@ -271,12 +271,10 @@ async def callback_video(callback_query: types.CallbackQuery):
 
 @dp.callback_query_handler(lambda c: c.data.startswith('audio_') and not c.data.startswith('audio_feedback_'))
 async def callback_audio(callback_query: types.CallbackQuery):
-    await bot.answer_callback_query(callback_query.id)
-    data = callback_query.data
+    await bot.answer_callback_query(callback_query.id, cache_time=1)
     user_id = callback_query.from_user.id
-    tech_id = int(data.split('_')[1])
+    tech_id = int(callback_query.data.split('_')[1])
     tech = get_technique_by_id(tech_id)
-
     if tech.audio_path:
         await bot.send_voice(user_id, tech.audio_path, caption=f"Произношение: {tech.name_ja}")
     else:
@@ -287,11 +285,10 @@ async def callback_audio(callback_query: types.CallbackQuery):
 
 @dp.callback_query_handler(lambda c: c.data.startswith('audio_feedback_'))
 async def callback_audio_feedback(callback_query: types.CallbackQuery):
-    await bot.answer_callback_query(callback_query.id)
+    await bot.answer_callback_query(callback_query.id, cache_time=1)
     user_id = callback_query.from_user.id
     tech_id = int(callback_query.data.split('_')[2])
     tech = get_technique_by_id(tech_id)
-
     if tech.audio_path:
         await bot.send_voice(user_id, tech.audio_path, caption=f"Произношение: {tech.name_ja}")
     else:
