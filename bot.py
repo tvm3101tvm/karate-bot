@@ -29,6 +29,9 @@ user_test_state = {}
 # Словарь для защиты от повторных нажатий на кнопки озвучки
 last_callback_time = defaultdict(float)
 
+# Хранилище ID последнего голосового сообщения для каждого пользователя
+last_voice_message_id = {}
+
 # Вспомогательная функция отправки вопроса теста
 
 async def send_question(user_id, tech_id, question_num, total_questions):
@@ -277,22 +280,34 @@ async def callback_audio(callback_query: types.CallbackQuery):
     user_id = callback_query.from_user.id
     callback_data = callback_query.data
     now = time.time()
-    # Уникальный ключ: пользователь + callback_data (чтобы разные кнопки не блокировали друг друга)
+
+    # Удаляем предыдущее голосовое сообщение пользователя (если есть)
+    if user_id in last_voice_message_id:
+        try:
+            await bot.delete_message(user_id, last_voice_message_id[user_id])
+        except Exception:
+            pass  # Если сообщение уже удалено или не найдено
+
+    # Защита от повторных нажатий на одну и ту же кнопку
     key = f"{user_id}_{callback_data}"
-    if now - last_callback_time[key] < 3:  # 3 секунды – защита от дублирования
+    if now - last_callback_time[key] < 3:
         await bot.answer_callback_query(callback_query.id, text="Подождите...", show_alert=False)
         return
     last_callback_time[key] = now
 
-    await bot.answer_callback_query(callback_query.id, cache_time=5)  # Telegram не будет присылать повторно 5 сек
+    await bot.answer_callback_query(callback_query.id, cache_time=5)
+
     tech_id = int(callback_data.split('_')[1])
     tech = get_technique_by_id(tech_id)
 
     if tech.audio_path:
-        await callback_query.message.reply_voice(
+        # Отправляем голосовое как ответ на сообщение с кнопкой
+        msg = await callback_query.message.reply_voice(
             tech.audio_path,
             caption=f"Произношение: {tech.name_ja}"
         )
+        # Сохраняем ID отправленного голосового сообщения
+        last_voice_message_id[user_id] = msg.message_id
     else:
         await callback_query.message.reply("Аудио пока не добавлено")
 
@@ -304,6 +319,14 @@ async def callback_audio_feedback(callback_query: types.CallbackQuery):
     user_id = callback_query.from_user.id
     callback_data = callback_query.data
     now = time.time()
+
+    # Удаляем предыдущее голосовое сообщение пользователя
+    if user_id in last_voice_message_id:
+        try:
+            await bot.delete_message(user_id, last_voice_message_id[user_id])
+        except Exception:
+            pass
+
     key = f"{user_id}_{callback_data}"
     if now - last_callback_time[key] < 3:
         await bot.answer_callback_query(callback_query.id, text="Подождите...", show_alert=False)
@@ -311,14 +334,16 @@ async def callback_audio_feedback(callback_query: types.CallbackQuery):
     last_callback_time[key] = now
 
     await bot.answer_callback_query(callback_query.id, cache_time=5)
+
     tech_id = int(callback_data.split('_')[2])
     tech = get_technique_by_id(tech_id)
 
     if tech.audio_path:
-        await callback_query.message.reply_voice(
+        msg = await callback_query.message.reply_voice(
             tech.audio_path,
             caption=f"Произношение: {tech.name_ja}"
         )
+        last_voice_message_id[user_id] = msg.message_id
     else:
         await callback_query.message.reply("Аудио пока не добавлено")
 
