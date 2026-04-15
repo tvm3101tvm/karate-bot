@@ -3,7 +3,7 @@ import random
 import sys
 import re
 import time
-from collections import defaultdictt 
+from collections import defaultdict 
 from aiogram import Bot, Dispatcher, types
 from aiogram.contrib.middlewares.logging import LoggingMiddleware
 from aiogram.utils import executor
