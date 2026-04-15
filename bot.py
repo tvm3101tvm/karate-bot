@@ -276,10 +276,13 @@ async def callback_audio(callback_query: types.CallbackQuery):
     tech_id = int(callback_query.data.split('_')[1])
     tech = get_technique_by_id(tech_id)
     if tech.audio_path:
-        await bot.send_voice(user_id, tech.audio_path, caption=f"Произношение: {tech.name_ja}")
+        # Отправляем голосовое как ответ на сообщение с кнопкой
+        await callback_query.message.reply_voice(
+            tech.audio_path,
+            caption=f"Произношение: {tech.name_ja}"
+        )
     else:
-        await bot.send_message(user_id, "Аудио пока не добавлено")
-
+        await callback_query.message.reply("Аудио пока не добавлено")
 
 # Озвучивание названия техники после в тесте
 
@@ -290,9 +293,13 @@ async def callback_audio_feedback(callback_query: types.CallbackQuery):
     tech_id = int(callback_query.data.split('_')[2])
     tech = get_technique_by_id(tech_id)
     if tech.audio_path:
-        await bot.send_voice(user_id, tech.audio_path, caption=f"Произношение: {tech.name_ja}")
+        # Отправляем голосовое как ответ на сообщение с кнопкой
+        await callback_query.message.reply_voice(
+            tech.audio_path,
+            caption=f"Произношение: {tech.name_ja}"
+        )
     else:
-        await bot.send_message(user_id, "Аудио пока не добавлено")
+        await callback_query.message.reply("Аудио пока не добавлено")
 
 
 # ТЕСТ
