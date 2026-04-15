@@ -1,6 +1,7 @@
 import logging
 import random
 import sys
+import re
 import time
 from collections import defaultdictt 
 from aiogram import Bot, Dispatcher, types
@@ -493,8 +494,6 @@ async def callback_recommend(callback_query: types.CallbackQuery):
 
 
 # ТЕКСТОВЫЙ ПОИСК
-
-import re  # добавьте в начало файла, если ещё нет
 
 @dp.message_handler()
 async def handle_text(message: types.Message):
