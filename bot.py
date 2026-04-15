@@ -1,7 +1,8 @@
 import logging
 import random
 import sys
-import aiogram
+import time
+from collections import defaultdictt aiogram
 from aiogram import Bot, Dispatcher, types
 from aiogram.contrib.middlewares.logging import LoggingMiddleware
 from aiogram.utils import executor
@@ -24,7 +25,8 @@ dp = Dispatcher(bot)
 dp.middleware.setup(LoggingMiddleware())
 
 user_test_state = {}
-
+# Словарь для защиты от повторных нажатий на кнопки озвучки
+last_callback_time = defaultdict(float)
 
 # Вспомогательная функция отправки вопроса теста
 
@@ -271,12 +273,24 @@ async def callback_video(callback_query: types.CallbackQuery):
 
 @dp.callback_query_handler(lambda c: c.data.startswith('audio_') and not c.data.startswith('audio_feedback_'))
 async def callback_audio(callback_query: types.CallbackQuery):
-    await bot.answer_callback_query(callback_query.id, cache_time=1)
     user_id = callback_query.from_user.id
-    tech_id = int(callback_query.data.split('_')[1])
+    callback_data = callback_query.data
+    now = time.time()
+    # Ключ = user_id + данные callback (разные кнопки не блокируют друг друга)
+    key = f"{user_id}_{callback_data}"
+    # Если ту же самую кнопку нажали повторно менее 3 секунд назад – игнорируем
+    if now - last_callback_time[key] < 3:
+        await bot.answer_callback_query(callback_query.id, text="Подождите...", show_alert=False)
+        return
+    last_callback_time[key] = now
+
+    # Подтверждаем callback и просим Telegram не присылать повторно 5 секунд
+    await bot.answer_callback_query(callback_query.id, cache_time=5)
+
+    tech_id = int(callback_data.split('_')[1])
     tech = get_technique_by_id(tech_id)
+
     if tech.audio_path:
-        # Отправляем голосовое как ответ на сообщение с кнопкой
         await callback_query.message.reply_voice(
             tech.audio_path,
             caption=f"Произношение: {tech.name_ja}"
@@ -284,22 +298,33 @@ async def callback_audio(callback_query: types.CallbackQuery):
     else:
         await callback_query.message.reply("Аудио пока не добавлено")
 
-# Озвучивание названия техники после в тесте
+
+ Озвучивание названия техники после в тесте
 
 @dp.callback_query_handler(lambda c: c.data.startswith('audio_feedback_'))
 async def callback_audio_feedback(callback_query: types.CallbackQuery):
-    await bot.answer_callback_query(callback_query.id, cache_time=1)
     user_id = callback_query.from_user.id
-    tech_id = int(callback_query.data.split('_')[2])
+    callback_data = callback_query.data
+    now = time.time()
+    key = f"{user_id}_{callback_data}"
+    if now - last_callback_time[key] < 3:
+        await bot.answer_callback_query(callback_query.id, text="Подождите...", show_alert=False)
+        return
+    last_callback_time[key] = now
+
+    await bot.answer_callback_query(callback_query.id, cache_time=5)
+
+    tech_id = int(callback_data.split('_')[2])
     tech = get_technique_by_id(tech_id)
+
     if tech.audio_path:
-        # Отправляем голосовое как ответ на сообщение с кнопкой
         await callback_query.message.reply_voice(
             tech.audio_path,
             caption=f"Произношение: {tech.name_ja}"
         )
     else:
         await callback_query.message.reply("Аудио пока не добавлено")
+
 
 
 # ТЕСТ
