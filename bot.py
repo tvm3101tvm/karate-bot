@@ -276,14 +276,14 @@ async def callback_audio(callback_query: types.CallbackQuery):
     user_id = callback_query.from_user.id
     callback_data = callback_query.data
     now = time.time()
+    # Уникальный ключ: пользователь + callback_data (чтобы разные кнопки не блокировали друг друга)
     key = f"{user_id}_{callback_data}"
-    if now - last_callback_time[key] < 3:
+    if now - last_callback_time[key] < 3:  # 3 секунды – защита от дублирования
         await bot.answer_callback_query(callback_query.id, text="Подождите...", show_alert=False)
         return
     last_callback_time[key] = now
 
-    await bot.answer_callback_query(callback_query.id, cache_time=5)
-
+    await bot.answer_callback_query(callback_query.id, cache_time=5)  # Telegram не будет присылать повторно 5 сек
     tech_id = int(callback_data.split('_')[1])
     tech = get_technique_by_id(tech_id)
 
@@ -296,7 +296,7 @@ async def callback_audio(callback_query: types.CallbackQuery):
         await callback_query.message.reply("Аудио пока не добавлено")
 
 
- Озвучивание названия техники после в тесте
+# Озвучивание названия техники после в тесте
 
 @dp.callback_query_handler(lambda c: c.data.startswith('audio_feedback_'))
 async def callback_audio_feedback(callback_query: types.CallbackQuery):
@@ -310,7 +310,6 @@ async def callback_audio_feedback(callback_query: types.CallbackQuery):
     last_callback_time[key] = now
 
     await bot.answer_callback_query(callback_query.id, cache_time=5)
-
     tech_id = int(callback_data.split('_')[2])
     tech = get_technique_by_id(tech_id)
 
@@ -321,7 +320,6 @@ async def callback_audio_feedback(callback_query: types.CallbackQuery):
         )
     else:
         await callback_query.message.reply("Аудио пока не добавлено")
-
 
 # ТЕСТ
 
