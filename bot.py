@@ -2,7 +2,7 @@ import logging
 import random
 import sys
 import time
-from collections import defaultdictt aiogram
+from collections import defaultdictt 
 from aiogram import Bot, Dispatcher, types
 from aiogram.contrib.middlewares.logging import LoggingMiddleware
 from aiogram.utils import executor
@@ -276,15 +276,12 @@ async def callback_audio(callback_query: types.CallbackQuery):
     user_id = callback_query.from_user.id
     callback_data = callback_query.data
     now = time.time()
-    # Ключ = user_id + данные callback (разные кнопки не блокируют друг друга)
     key = f"{user_id}_{callback_data}"
-    # Если ту же самую кнопку нажали повторно менее 3 секунд назад – игнорируем
     if now - last_callback_time[key] < 3:
         await bot.answer_callback_query(callback_query.id, text="Подождите...", show_alert=False)
         return
     last_callback_time[key] = now
 
-    # Подтверждаем callback и просим Telegram не присылать повторно 5 секунд
     await bot.answer_callback_query(callback_query.id, cache_time=5)
 
     tech_id = int(callback_data.split('_')[1])
@@ -324,7 +321,6 @@ async def callback_audio_feedback(callback_query: types.CallbackQuery):
         )
     else:
         await callback_query.message.reply("Аудио пока не добавлено")
-
 
 
 # ТЕСТ
