@@ -471,39 +471,45 @@ async def callback_recommend(callback_query: types.CallbackQuery):
 
 # ТЕКСТОВЫЙ ПОИСК
 
+import re  # добавьте в начало файла, если ещё нет
+
 @dp.message_handler()
 async def handle_text(message: types.Message):
-    # Исходный текст пользователя
+    # Исходный текст запроса
     raw_text = message.text.lower().strip()
     print(f"DEBUG: пользователь ввёл текст: '{raw_text}'")
 
-    # Функция нормализации: удаляем дефисы и пробелы
+    # Функция нормализации: удаляем знаки препинания, дефисы, пробелы
     def normalize(s: str) -> str:
-        return s.lower().replace('-', '').replace(' ', '')
+        # Оставляем только буквы, цифры и пробелы
+        s = re.sub(r'[^\w\s]', '', s)
+        # Удаляем пробелы и приводим к нижнему регистру
+        return s.replace(' ', '').lower()
 
     # Нормализуем запрос пользователя
-    normalized_text = normalize(raw_text)
+    normalized_query = normalize(raw_text)
 
     session = Session()
     all_techs = session.query(Technique).all()
     session.close()
 
-    # Поиск: сравниваем нормализованные названия
+    # Поиск техники по нормализованным названиям
     tech = next(
         (t for t in all_techs
-         if normalized_text in normalize(t.name_ru)
-         or normalized_text in normalize(t.name_ja)),
+         if normalized_query in normalize(t.name_ru)
+         or normalized_query in normalize(t.name_ja)),
         None
     )
 
     if tech:
         print(f"DEBUG: НАЙДЕНО! {tech.name_ru} | {tech.name_ja}")
+        # Отправляем GIF с описанием и кнопками
         await message.reply_animation(
             tech.gif_path,
             caption=f'{tech.name_ja} ({tech.name_ru})\n{tech.description}',
             reply_markup=technique_keyboard(tech.id)
         )
-        # После отправки GIF также показываем список техник той же категории (опционально)
+        # Дополнительно отправляем список техник той же категории
         category = tech.category
         category_names = {
             'stance': 'Стойки',
