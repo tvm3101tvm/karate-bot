@@ -473,20 +473,55 @@ async def callback_recommend(callback_query: types.CallbackQuery):
 
 @dp.message_handler()
 async def handle_text(message: types.Message):
-    text = message.text.lower().strip()
+    # Исходный текст пользователя
+    raw_text = message.text.lower().strip()
+    print(f"DEBUG: пользователь ввёл текст: '{raw_text}'")
+
+    # Функция нормализации: удаляем дефисы и пробелы
+    def normalize(s: str) -> str:
+        return s.lower().replace('-', '').replace(' ', '')
+
+    # Нормализуем запрос пользователя
+    normalized_text = normalize(raw_text)
+
     session = Session()
     all_techs = session.query(Technique).all()
     session.close()
 
-    tech = next((t for t in all_techs if text in t.name_ru.lower() or text in t.name_ja.lower()), None)
+    # Поиск: сравниваем нормализованные названия
+    tech = next(
+        (t for t in all_techs
+         if normalized_text in normalize(t.name_ru)
+         or normalized_text in normalize(t.name_ja)),
+        None
+    )
 
     if tech:
+        print(f"DEBUG: НАЙДЕНО! {tech.name_ru} | {tech.name_ja}")
         await message.reply_animation(
             tech.gif_path,
             caption=f'{tech.name_ja} ({tech.name_ru})\n{tech.description}',
             reply_markup=technique_keyboard(tech.id)
         )
+        # После отправки GIF также показываем список техник той же категории (опционально)
+        category = tech.category
+        category_names = {
+            'stance': 'Стойки',
+            'block': 'Блоки',
+            'punch': 'Удары руками',
+            'kick': 'Удары ногами',
+            'kihon': 'Кихон',
+            'kata': 'Ката'
+        }
+        category_title = category_names.get(category, 'Техники')
+        techniques = get_techniques_by_category(category)
+        await bot.send_message(
+            message.chat.id,
+            f"Выберите технику из раздела «{category_title}»:",
+            reply_markup=techniques_menu(category, techniques)
+        )
     else:
+        print("DEBUG: НИЧЕГО НЕ НАЙДЕНО")
         await message.reply(
             'Я не понял запрос. Пожалуйста, воспользуйтесь меню.',
             reply_markup=main_menu()
