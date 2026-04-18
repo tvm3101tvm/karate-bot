@@ -116,7 +116,7 @@ async def cmd_stats(message: types.Message):
     session.close()
 
 # ---------------------------------------------------------
-# ВРЕМЕННЫЙ ОБРАБОТЧИК ДЛЯ ПОЛУЧЕНИЯ FILE_ID (можно удалить после использования)
+# ВРЕМЕННЫЙ ОБРАБОТЧИК ДЛЯ ПОЛУЧЕНИЯ FILE_ID (после использования удалить)
 # ---------------------------------------------------------
 @dp.message_handler(content_types=['photo', 'video', 'animation', 'voice', 'audio'])
 async def get_file_id_handler(message: types.Message):
@@ -157,7 +157,6 @@ async def callback_main_menu(callback_query: types.CallbackQuery):
         reply_markup=main_menu()
     )
 
-# --- НОВЫЙ ОБРАБОТЧИК ДЛЯ КНОПКИ «КИХОН» ---
 @dp.callback_query_handler(lambda c: c.data == 'kihon')
 async def callback_kihon_main(callback_query: types.CallbackQuery):
     user_id = callback_query.from_user.id
@@ -169,7 +168,17 @@ async def callback_kihon_main(callback_query: types.CallbackQuery):
         reply_markup=kihon_submenu()
     )
 
-# --- ОБРАБОТЧИК ДЛЯ ВЫБОРА КАТЕГОРИИ ВНУТРИ «КИХОН» ---
+@dp.callback_query_handler(lambda c: c.data == 'back_to_kihon_submenu')
+async def callback_back_to_kihon_submenu(callback_query: types.CallbackQuery):
+    user_id = callback_query.from_user.id
+    message_id = callback_query.message.message_id
+    await bot.edit_message_text(
+        "Выберите категорию:",
+        chat_id=user_id,
+        message_id=message_id,
+        reply_markup=kihon_submenu()
+    )
+
 @dp.callback_query_handler(lambda c: c.data.startswith('kihon_'))
 async def callback_kihon_category(callback_query: types.CallbackQuery):
     data = callback_query.data
@@ -187,10 +196,9 @@ async def callback_kihon_category(callback_query: types.CallbackQuery):
         return
 
     cat = category_map[data]
-    # Получаем список техник для выбранной категории
     techniques = get_techniques_by_category(cat)
 
-    # Отображаем список техник (используем существующую функцию techniques_menu)
+    # Отображаем список техник
     await bot.edit_message_text(
         f"Выберите технику из раздела «{category_map_to_name(cat)}»:",
         chat_id=user_id,
@@ -198,7 +206,7 @@ async def callback_kihon_category(callback_query: types.CallbackQuery):
         reply_markup=techniques_menu(cat, techniques)
     )
 
-# --- ВСПОМОГАТЕЛЬНАЯ ФУНКЦИЯ ДЛЯ ПРЕОБРАЗОВАНИЯ КАТЕГОРИИ В РУССКОЕ НАЗВАНИЕ ---
+# Вспомогательная функция для преобразования категории в русское название
 def category_map_to_name(category):
     names = {
         'stance': 'Стойки',
@@ -208,7 +216,6 @@ def category_map_to_name(category):
     }
     return names.get(category, 'Техники')
 
-# --- ОБРАБОТЧИК ДЛЯ КНОПКИ «КАТА» (в разработке) ---
 @dp.callback_query_handler(lambda c: c.data == 'cat_kata')
 async def callback_kata(callback_query: types.CallbackQuery):
     user_id = callback_query.from_user.id
@@ -220,7 +227,6 @@ async def callback_kata(callback_query: types.CallbackQuery):
     )
     await bot.delete_message(user_id, message.message_id)
 
-# --- ОБРАБОТЧИК ВЫБОРА КОНКРЕТНОЙ ТЕХНИКИ (tech_) ---
 @dp.callback_query_handler(lambda c: c.data.startswith('tech_'))
 async def callback_tech(callback_query: types.CallbackQuery):
     data = callback_query.data
@@ -237,7 +243,6 @@ async def callback_tech(callback_query: types.CallbackQuery):
     )
     await bot.delete_message(user_id, message.message_id)
 
-# --- ОБРАБОТЧИК КНОПКИ «НАЗАД В СПИСОК» (после просмотра техники) ---
 @dp.callback_query_handler(lambda c: c.data.startswith('back_to_list_'))
 async def callback_back_to_list(callback_query: types.CallbackQuery):
     user_id = callback_query.from_user.id
@@ -253,7 +258,6 @@ async def callback_back_to_list(callback_query: types.CallbackQuery):
         reply_markup=techniques_menu(category, techniques)
     )
 
-# --- ОБРАБОТЧИК ПРОСМОТРА ВИДЕО ---
 @dp.callback_query_handler(lambda c: c.data.startswith('video_'))
 async def callback_video(callback_query: types.CallbackQuery):
     data = callback_query.data
@@ -273,7 +277,7 @@ async def callback_video(callback_query: types.CallbackQuery):
     )
 
 # ---------------------------------------------------------
-# ОЗВУЧИВАНИЕ НАЗВАНИЯ ТЕХНИКИ (основной интерфейс)
+# ОЗВУЧИВАНИЕ НАЗВАНИЯ ТЕХНИКИ (интерфейс)
 # ---------------------------------------------------------
 @dp.callback_query_handler(lambda c: c.data.startswith('audio_') and not c.data.startswith('audio_feedback_'))
 async def callback_audio(callback_query: types.CallbackQuery):
@@ -281,7 +285,6 @@ async def callback_audio(callback_query: types.CallbackQuery):
     callback_data = callback_query.data
     now = time.time()
 
-    # Удаляем предыдущее голосовое сообщение пользователя (если есть)
     if user_id in last_voice_message_id:
         try:
             await bot.delete_message(user_id, last_voice_message_id[user_id])

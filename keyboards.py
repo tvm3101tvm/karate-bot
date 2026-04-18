@@ -12,7 +12,7 @@ def main_menu():
     return kb
 
 def kihon_submenu():
-    """Подменю для раздела Кихон: категории базовых техник"""
+    """Подменю для раздела Кихон (выбор категории)"""
     kb = InlineKeyboardMarkup(row_width=2)
     kb.add(
         InlineKeyboardButton('Стойки', callback_data='kihon_stance'),
@@ -29,7 +29,8 @@ def techniques_menu(category, techniques):
     for tech in techniques:
         button_text = f"{tech.name_ja} ({tech.name_ru})"
         kb.insert(InlineKeyboardButton(button_text, callback_data=f'tech_{tech.id}'))
-    kb.add(InlineKeyboardButton('Назад', callback_data='main_menu'))
+    # Кнопка "Назад" возвращает в подменю Кихон
+    kb.add(InlineKeyboardButton('Назад', callback_data='back_to_kihon_submenu'))
     return kb
 
 def technique_keyboard(tech_id):
