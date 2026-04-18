@@ -38,7 +38,7 @@ def main():
         
         Technique(
             name_ru='Верхний блок',
-            name_ja='Аге-уке',
+            name_ja='Аге уке',
             category='block',
             description='Для защиты головы.',
             video_path='file_id_видео_агэукэ',
@@ -56,7 +56,7 @@ def main():
         ),
         Technique(
             name_ru='Внутренний блок',
-            name_ja='Учи-уке',
+            name_ja='Учи уке',
             category='block',
             description='Блок изнутри наружу (ладонью вверх).',
             video_path='file_id_видео_учиукэ',
@@ -65,7 +65,7 @@ def main():
         ),
         Technique(
             name_ru='Внешний блок',
-            name_ja='Сото-уке',
+            name_ja='Сото уке',
             category='block',
             description='Блок снаружи внутрь (ладонью вниз).',
             video_path='file_id_видео_сотоукэ',
@@ -74,7 +74,7 @@ def main():
         ),
         Technique(
             name_ru='Блок ребром ладони',
-            name_ja='Шуто-уке',
+            name_ja='Шуто уке',
             category='block',
             description='Блок ребром ладони как лезвием ножа.',
             video_path='file_id_видео_шуто',
@@ -85,7 +85,7 @@ def main():
         
         Technique(
             name_ru='Прямой удар (разноименный)',
-            name_ja='Ой-цуки',
+            name_ja='Ой цуки',
             category='punch',
             description='Прямой удар рукой, разноимённый с впереди стоящей ногой.',
             video_path='file_id_видео_ойцуки',
@@ -94,7 +94,7 @@ def main():
         ),
         Technique(
             name_ru='Прямой удар (одноименный)',
-            name_ja='Гьяку-цуки',
+            name_ja='Гьяку цуки',
             category='punch',
             description='Прямой удар рукой, одноимённый с впереди стоящей ногой',
             video_path='file_id_видео_гьякуцуки',
@@ -105,7 +105,7 @@ def main():
         
         Technique(
             name_ru='Прямой удар ногой',
-            name_ja='Мае-гери',
+            name_ja='Мае гери',
             category='kick',
             description='Удар ногой вперёд.',
             video_path='file_id_видео_маэгэри',
@@ -114,7 +114,7 @@ def main():
         ),
         Technique(
             name_ru='Круговой удар ногой',
-            name_ja='Маваши-гери',
+            name_ja='Маваши гери',
             category='kick',
             description='Удар ногой по кругу.',
             video_path='file_id_видео_маваши',
@@ -123,7 +123,7 @@ def main():
         ),
         Technique(
             name_ru='Проникающий боковой удар ногой',
-            name_ja='Йоко-гери кекоми',
+            name_ja='Йоко гери кекоми',
             category='kick',
             description='Удар ребром либо пяткой стопы.',
             video_path='file_id_видео_йоко',
@@ -132,7 +132,7 @@ def main():
         ),
         Technique(
             name_ru='Обратный круговой',
-            name_ja='Урамаваши-гери',
+            name_ja='Урамаваши гери',
             category='kick',
             description='Круговой удар с разворотом пяткой.',
             video_path='file_id_видео_урамаваши',
