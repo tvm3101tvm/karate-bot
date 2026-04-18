@@ -3,7 +3,7 @@ import random
 import sys
 import re
 import time
-from collections import defaultdict 
+from collections import defaultdict
 from aiogram import Bot, Dispatcher, types
 from aiogram.contrib.middlewares.logging import LoggingMiddleware
 from aiogram.utils import executor
@@ -15,9 +15,8 @@ from database import (
     get_techniques_by_category, get_technique_by_id, update_progress,
     Session, Technique, UserProgress
 )
-from keyboards import main_menu, test_options, technique_keyboard, techniques_menu
+from keyboards import main_menu, test_options, technique_keyboard, techniques_menu, kihon_submenu
 from utils import get_next_test_technique, get_recommendations
-
 
 logging.basicConfig(level=logging.INFO)
 
@@ -28,12 +27,12 @@ dp.middleware.setup(LoggingMiddleware())
 user_test_state = {}
 # Словарь для защиты от повторных нажатий на кнопки озвучки
 last_callback_time = defaultdict(float)
-
 # Хранилище ID последнего голосового сообщения для каждого пользователя
 last_voice_message_id = {}
 
+# ---------------------------------------------------------
 # Вспомогательная функция отправки вопроса теста
-
+# ---------------------------------------------------------
 async def send_question(user_id, tech_id, question_num, total_questions):
     tech = get_technique_by_id(tech_id)
     await bot.send_animation(
@@ -50,9 +49,9 @@ async def send_question(user_id, tech_id, question_num, total_questions):
         reply_markup=test_options(tech, all_techs)
     )
 
-
+# ---------------------------------------------------------
 # КОМАНДЫ
-
+# ---------------------------------------------------------
 @dp.message_handler(commands=['start'])
 async def cmd_start(message: types.Message):
     await message.answer(
@@ -116,9 +115,9 @@ async def cmd_stats(message: types.Message):
         await message.reply(text)
     session.close()
 
-
-# ВРЕМЕННЫЙ ОБРАБОТЧИК ДЛЯ ПОЛУЧЕНИЯ FILE_ID
-
+# ---------------------------------------------------------
+# ВРЕМЕННЫЙ ОБРАБОТЧИК ДЛЯ ПОЛУЧЕНИЯ FILE_ID (можно удалить после использования)
+# ---------------------------------------------------------
 @dp.message_handler(content_types=['photo', 'video', 'animation', 'voice', 'audio'])
 async def get_file_id_handler(message: types.Message):
     print(f"Получено медиа типа {message.content_type}")
@@ -144,9 +143,9 @@ async def get_file_id_handler(message: types.Message):
     await message.reply(f"✅ {file_type} file_id:\n`{file_id}`")
     print(f"Отправлен file_id для {file_type}")
 
-
+# ---------------------------------------------------------
 # НАВИГАЦИЯ И ПРОСМОТР ТЕХНИК
-
+# ---------------------------------------------------------
 @dp.callback_query_handler(lambda c: c.data == 'main_menu')
 async def callback_main_menu(callback_query: types.CallbackQuery):
     user_id = callback_query.from_user.id
@@ -158,62 +157,70 @@ async def callback_main_menu(callback_query: types.CallbackQuery):
         reply_markup=main_menu()
     )
 
-@dp.callback_query_handler(lambda c: c.data == 'cat_kihon')
-async def callback_kihon(callback_query: types.CallbackQuery):
+# --- НОВЫЙ ОБРАБОТЧИК ДЛЯ КНОПКИ «КИХОН» ---
+@dp.callback_query_handler(lambda c: c.data == 'kihon')
+async def callback_kihon_main(callback_query: types.CallbackQuery):
     user_id = callback_query.from_user.id
-    message = callback_query.message
-    await bot.send_message(
-        user_id,
-        "Раздел «Кихон» находится в разработке. Следите за обновлениями!",
-        reply_markup=main_menu()
+    message_id = callback_query.message.message_id
+    await bot.edit_message_text(
+        "Выберите категорию:",
+        chat_id=user_id,
+        message_id=message_id,
+        reply_markup=kihon_submenu()
     )
-    await bot.delete_message(user_id, message.message_id)
 
+# --- ОБРАБОТЧИК ДЛЯ ВЫБОРА КАТЕГОРИИ ВНУТРИ «КИХОН» ---
+@dp.callback_query_handler(lambda c: c.data.startswith('kihon_'))
+async def callback_kihon_category(callback_query: types.CallbackQuery):
+    data = callback_query.data
+    user_id = callback_query.from_user.id
+    message_id = callback_query.message.message_id
+
+    category_map = {
+        'kihon_stance': 'stance',
+        'kihon_block': 'block',
+        'kihon_punch': 'punch',
+        'kihon_kick': 'kick'
+    }
+    if data not in category_map:
+        await bot.answer_callback_query(callback_query.id, text="Раздел в разработке", show_alert=False)
+        return
+
+    cat = category_map[data]
+    # Получаем список техник для выбранной категории
+    techniques = get_techniques_by_category(cat)
+
+    # Отображаем список техник (используем существующую функцию techniques_menu)
+    await bot.edit_message_text(
+        f"Выберите технику из раздела «{category_map_to_name(cat)}»:",
+        chat_id=user_id,
+        message_id=message_id,
+        reply_markup=techniques_menu(cat, techniques)
+    )
+
+# --- ВСПОМОГАТЕЛЬНАЯ ФУНКЦИЯ ДЛЯ ПРЕОБРАЗОВАНИЯ КАТЕГОРИИ В РУССКОЕ НАЗВАНИЕ ---
+def category_map_to_name(category):
+    names = {
+        'stance': 'Стойки',
+        'block': 'Блоки',
+        'punch': 'Удары руками',
+        'kick': 'Удары ногами'
+    }
+    return names.get(category, 'Техники')
+
+# --- ОБРАБОТЧИК ДЛЯ КНОПКИ «КАТА» (в разработке) ---
 @dp.callback_query_handler(lambda c: c.data == 'cat_kata')
 async def callback_kata(callback_query: types.CallbackQuery):
     user_id = callback_query.from_user.id
     message = callback_query.message
     await bot.send_message(
         user_id,
-        "Раздел «Ката» находится в разработке. Следите за обновлениями! ",
+        "Раздел «Ката» находится в разработке. Следите за обновлениями!",
         reply_markup=main_menu()
     )
     await bot.delete_message(user_id, message.message_id)
 
-@dp.callback_query_handler(lambda c: c.data.startswith('cat_') and c.data not in ['cat_kihon', 'cat_kata'])
-async def callback_category(callback_query: types.CallbackQuery):
-    data = callback_query.data
-    user_id = callback_query.from_user.id
-    message = callback_query.message
-
-    category_names = {
-        'cat_stance': 'Стойки',
-        'cat_block': 'Блоки',
-        'cat_punch': 'Удары руками',
-        'cat_kick': 'Удары ногами'
-    }
-
-    category_map = {
-        'cat_stance': 'stance',
-        'cat_block': 'block',
-        'cat_punch': 'punch',
-        'cat_kick': 'kick'
-    }
-
-    if data not in category_map:
-        await bot.answer_callback_query(callback_query.id, text="Раздел в разработке", show_alert=False)
-        return
-
-    cat = category_map[data]
-    techniques = get_techniques_by_category(cat)
-
-    await bot.edit_message_text(
-        f"Выберите технику из раздела «{category_names[data]}»:",
-        chat_id=user_id,
-        message_id=message.message_id,
-        reply_markup=techniques_menu(cat, techniques)
-    )
-
+# --- ОБРАБОТЧИК ВЫБОРА КОНКРЕТНОЙ ТЕХНИКИ (tech_) ---
 @dp.callback_query_handler(lambda c: c.data.startswith('tech_'))
 async def callback_tech(callback_query: types.CallbackQuery):
     data = callback_query.data
@@ -230,6 +237,7 @@ async def callback_tech(callback_query: types.CallbackQuery):
     )
     await bot.delete_message(user_id, message.message_id)
 
+# --- ОБРАБОТЧИК КНОПКИ «НАЗАД В СПИСОК» (после просмотра техники) ---
 @dp.callback_query_handler(lambda c: c.data.startswith('back_to_list_'))
 async def callback_back_to_list(callback_query: types.CallbackQuery):
     user_id = callback_query.from_user.id
@@ -238,22 +246,14 @@ async def callback_back_to_list(callback_query: types.CallbackQuery):
     category = tech.category
     techniques = get_techniques_by_category(category)
 
-    category_names = {
-        'stance': 'Стойки',
-        'block': 'Блоки',
-        'punch': 'Удары руками',
-        'kick': 'Удары ногами',
-        'kihon': 'Кихон',
-        'kata': 'Ката'
-    }
-    category_title = category_names.get(category, 'Техники')
-
+    category_title = category_map_to_name(category)
     await bot.send_message(
         user_id,
         f"Выберите технику из раздела «{category_title}»:",
         reply_markup=techniques_menu(category, techniques)
     )
 
+# --- ОБРАБОТЧИК ПРОСМОТРА ВИДЕО ---
 @dp.callback_query_handler(lambda c: c.data.startswith('video_'))
 async def callback_video(callback_query: types.CallbackQuery):
     data = callback_query.data
@@ -272,9 +272,9 @@ async def callback_video(callback_query: types.CallbackQuery):
         supports_streaming=True
     )
 
-
-# Озвучивание названия техники (интерфейс)
-
+# ---------------------------------------------------------
+# ОЗВУЧИВАНИЕ НАЗВАНИЯ ТЕХНИКИ (основной интерфейс)
+# ---------------------------------------------------------
 @dp.callback_query_handler(lambda c: c.data.startswith('audio_') and not c.data.startswith('audio_feedback_'))
 async def callback_audio(callback_query: types.CallbackQuery):
     user_id = callback_query.from_user.id
@@ -286,9 +286,8 @@ async def callback_audio(callback_query: types.CallbackQuery):
         try:
             await bot.delete_message(user_id, last_voice_message_id[user_id])
         except Exception:
-            pass  # Если сообщение уже удалено или не найдено
+            pass
 
-    # Защита от повторных нажатий на одну и ту же кнопку
     key = f"{user_id}_{callback_data}"
     if now - last_callback_time[key] < 3:
         await bot.answer_callback_query(callback_query.id, text="Подождите...", show_alert=False)
@@ -301,26 +300,23 @@ async def callback_audio(callback_query: types.CallbackQuery):
     tech = get_technique_by_id(tech_id)
 
     if tech.audio_path:
-        # Отправляем голосовое как ответ на сообщение с кнопкой
         msg = await callback_query.message.reply_voice(
             tech.audio_path,
             caption=f"Произношение: {tech.name_ja}"
         )
-        # Сохраняем ID отправленного голосового сообщения
         last_voice_message_id[user_id] = msg.message_id
     else:
         await callback_query.message.reply("Аудио пока не добавлено")
 
-
-# Озвучивание названия техники после в тесте
-
+# ---------------------------------------------------------
+# ОЗВУЧИВАНИЕ НАЗВАНИЯ ТЕХНИКИ ПОСЛЕ ОТВЕТА В ТЕСТЕ
+# ---------------------------------------------------------
 @dp.callback_query_handler(lambda c: c.data.startswith('audio_feedback_'))
 async def callback_audio_feedback(callback_query: types.CallbackQuery):
     user_id = callback_query.from_user.id
     callback_data = callback_query.data
     now = time.time()
 
-    # Удаляем предыдущее голосовое сообщение пользователя
     if user_id in last_voice_message_id:
         try:
             await bot.delete_message(user_id, last_voice_message_id[user_id])
@@ -347,9 +343,9 @@ async def callback_audio_feedback(callback_query: types.CallbackQuery):
     else:
         await callback_query.message.reply("Аудио пока не добавлено")
 
-# ТЕСТ
-
-
+# ---------------------------------------------------------
+# ТЕСТИРОВАНИЕ
+# ---------------------------------------------------------
 @dp.callback_query_handler(lambda c: c.data == 'test_start')
 async def callback_test_start(callback_query: types.CallbackQuery):
     user_id = callback_query.from_user.id
@@ -504,9 +500,9 @@ async def callback_test_cancel(callback_query: types.CallbackQuery):
         reply_markup=main_menu()
     )
 
-
-# РЕКОМЕНДАЦИИ 
-
+# ---------------------------------------------------------
+# РЕКОМЕНДАЦИИ
+# ---------------------------------------------------------
 @dp.callback_query_handler(lambda c: c.data == 'recommend')
 async def callback_recommend(callback_query: types.CallbackQuery):
     user_id = callback_query.from_user.id
@@ -517,30 +513,24 @@ async def callback_recommend(callback_query: types.CallbackQuery):
         text = 'Пока нет статистики. Пройдите тест, чтобы получить рекомендации.'
     await bot.send_message(user_id, text, reply_markup=main_menu())
 
-
+# ---------------------------------------------------------
 # ТЕКСТОВЫЙ ПОИСК
-
+# ---------------------------------------------------------
 @dp.message_handler()
 async def handle_text(message: types.Message):
-    # Исходный текст запроса
     raw_text = message.text.lower().strip()
     print(f"DEBUG: пользователь ввёл текст: '{raw_text}'")
 
-    # Функция нормализации: удаляем знаки препинания, дефисы, пробелы
     def normalize(s: str) -> str:
-        # Оставляем только буквы, цифры и пробелы
         s = re.sub(r'[^\w\s]', '', s)
-        # Удаляем пробелы и приводим к нижнему регистру
         return s.replace(' ', '').lower()
 
-    # Нормализуем запрос пользователя
     normalized_query = normalize(raw_text)
 
     session = Session()
     all_techs = session.query(Technique).all()
     session.close()
 
-    # Поиск техники по нормализованным названиям
     tech = next(
         (t for t in all_techs
          if normalized_query in normalize(t.name_ru)
@@ -550,23 +540,13 @@ async def handle_text(message: types.Message):
 
     if tech:
         print(f"DEBUG: НАЙДЕНО! {tech.name_ru} | {tech.name_ja}")
-        # Отправляем GIF с описанием и кнопками
         await message.reply_animation(
             tech.gif_path,
             caption=f'{tech.name_ja} ({tech.name_ru})\n{tech.description}',
             reply_markup=technique_keyboard(tech.id)
         )
-        # Дополнительно отправляем список техник той же категории
         category = tech.category
-        category_names = {
-            'stance': 'Стойки',
-            'block': 'Блоки',
-            'punch': 'Удары руками',
-            'kick': 'Удары ногами',
-            'kihon': 'Кихон',
-            'kata': 'Ката'
-        }
-        category_title = category_names.get(category, 'Техники')
+        category_title = category_map_to_name(category)
         techniques = get_techniques_by_category(category)
         await bot.send_message(
             message.chat.id,
@@ -580,10 +560,9 @@ async def handle_text(message: types.Message):
             reply_markup=main_menu()
         )
 
-
+# ---------------------------------------------------------
 # СЛУЖЕБНЫЕ ФУНКЦИИ И ЗАПУСК
-
-
+# ---------------------------------------------------------
 async def set_commands(bot: Bot):
     commands = [
         BotCommand(command="start", description="Запустить бота"),

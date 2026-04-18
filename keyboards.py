@@ -1,21 +1,30 @@
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 def main_menu():
+    """Главное меню: Кихон, Ката, Тест, Рекомендации"""
     kb = InlineKeyboardMarkup(row_width=2)
     kb.add(
-        InlineKeyboardButton('Стойки', callback_data='cat_stance'),
-        InlineKeyboardButton('Блоки', callback_data='cat_block'),
-        InlineKeyboardButton('Удары руками', callback_data='cat_punch'),
-        InlineKeyboardButton('Удары ногами', callback_data='cat_kick'),
-        InlineKeyboardButton('Кихон', callback_data='cat_kihon'),
+        InlineKeyboardButton('Кихон', callback_data='kihon'),
         InlineKeyboardButton('Ката', callback_data='cat_kata'),
         InlineKeyboardButton('Тест', callback_data='test_start'),
         InlineKeyboardButton('Рекомендации', callback_data='recommend')
     )
     return kb
 
+def kihon_submenu():
+    """Подменю для раздела Кихон: категории базовых техник"""
+    kb = InlineKeyboardMarkup(row_width=2)
+    kb.add(
+        InlineKeyboardButton('Стойки', callback_data='kihon_stance'),
+        InlineKeyboardButton('Блоки', callback_data='kihon_block'),
+        InlineKeyboardButton('Удары руками', callback_data='kihon_punch'),
+        InlineKeyboardButton('Удары ногами', callback_data='kihon_kick')
+    )
+    kb.add(InlineKeyboardButton('Назад', callback_data='main_menu'))
+    return kb
+
 def techniques_menu(category, techniques):
-    """Меню выбора техники из категории. Кнопки в один столбец."""
+    """Меню выбора техники из категории (вертикальные кнопки)"""
     kb = InlineKeyboardMarkup(row_width=1)
     for tech in techniques:
         button_text = f"{tech.name_ja} ({tech.name_ru})"
@@ -24,7 +33,7 @@ def techniques_menu(category, techniques):
     return kb
 
 def technique_keyboard(tech_id):
-    """Клавиатура для одной техники: видео, аудио и назад в список."""
+    """Клавиатура для одной техники: видео, аудио, назад в список"""
     kb = InlineKeyboardMarkup(row_width=2)
     kb.add(
         InlineKeyboardButton('Смотреть видео', callback_data=f'video_{tech_id}'),
@@ -34,7 +43,7 @@ def technique_keyboard(tech_id):
     return kb
 
 def test_options(tech, all_techs):
-    """Клавиатура для теста: варианты ответов и кнопка прерывания."""
+    """Клавиатура для теста: варианты ответов и кнопка прерывания"""
     import random
     options = [tech]
     others = [t for t in all_techs if t.id != tech.id]
