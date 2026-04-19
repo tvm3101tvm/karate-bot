@@ -3,6 +3,8 @@ import random
 import sys
 import re
 import time
+import json
+import os
 from collections import defaultdict
 from aiogram import Bot, Dispatcher, types
 from aiogram.contrib.middlewares.logging import LoggingMiddleware
@@ -25,10 +27,21 @@ dp = Dispatcher(bot)
 dp.middleware.setup(LoggingMiddleware())
 
 user_test_state = {}
-# Словарь для защиты от повторных нажатий на кнопки озвучки
 last_callback_time = defaultdict(float)
-# Хранилище ID последнего голосового сообщения для каждого пользователя
 last_voice_message_id = {}
+
+# Файл для сохранения ID последнего голосового сообщения (чтобы удалять при перезапуске)
+VOICE_STATE_FILE = '/data/voice_state.json'
+
+def load_voice_state():
+    if not os.path.exists(VOICE_STATE_FILE):
+        return {}
+    with open(VOICE_STATE_FILE, 'r') as f:
+        return json.load(f)
+
+def save_voice_state(state):
+    with open(VOICE_STATE_FILE, 'w') as f:
+        json.dump(state, f)
 
 # ---------------------------------------------------------
 # Вспомогательная функция отправки вопроса теста
@@ -54,17 +67,11 @@ async def send_question(user_id, tech_id, question_num, total_questions):
 # ---------------------------------------------------------
 @dp.message_handler(commands=['start'])
 async def cmd_start(message: types.Message):
-    await message.answer(
-        'Выберите раздел:',
-        reply_markup=main_menu()
-    )
+    await message.answer('Выберите раздел:', reply_markup=main_menu())
 
 @dp.message_handler(commands=['menu'])
 async def cmd_menu(message: types.Message):
-    await message.answer(
-        'Главное меню:',
-        reply_markup=main_menu()
-    )
+    await message.answer('Главное меню:', reply_markup=main_menu())
 
 @dp.message_handler(commands=['recommend'])
 async def cmd_recommend(message: types.Message):
@@ -116,11 +123,10 @@ async def cmd_stats(message: types.Message):
     session.close()
 
 # ---------------------------------------------------------
-# ВРЕМЕННЫЙ ОБРАБОТЧИК ДЛЯ ПОЛУЧЕНИЯ FILE_ID (после использования удалить)
+# ВРЕМЕННЫЙ ОБРАБОТЧИК ДЛЯ ПОЛУЧЕНИЯ FILE_ID (можно удалить или закомментировать после использования)
 # ---------------------------------------------------------
 @dp.message_handler(content_types=['photo', 'video', 'animation', 'voice', 'audio'])
 async def get_file_id_handler(message: types.Message):
-    print(f"Получено медиа типа {message.content_type}")
     file_id = None
     file_type = ""
     if message.photo:
@@ -141,7 +147,6 @@ async def get_file_id_handler(message: types.Message):
     else:
         return
     await message.reply(f"✅ {file_type} file_id:\n`{file_id}`")
-    print(f"Отправлен file_id для {file_type}")
 
 # ---------------------------------------------------------
 # НАВИГАЦИЯ И ПРОСМОТР ТЕХНИК
@@ -198,7 +203,6 @@ async def callback_kihon_category(callback_query: types.CallbackQuery):
     cat = category_map[data]
     techniques = get_techniques_by_category(cat)
 
-    # Отображаем список техник
     await bot.edit_message_text(
         f"Выберите технику из раздела «{category_map_to_name(cat)}»:",
         chat_id=user_id,
@@ -206,7 +210,6 @@ async def callback_kihon_category(callback_query: types.CallbackQuery):
         reply_markup=techniques_menu(cat, techniques)
     )
 
-# Вспомогательная функция для преобразования категории в русское название
 def category_map_to_name(category):
     names = {
         'stance': 'Стойки',
@@ -277,7 +280,7 @@ async def callback_video(callback_query: types.CallbackQuery):
     )
 
 # ---------------------------------------------------------
-# ОЗВУЧИВАНИЕ НАЗВАНИЯ ТЕХНИКИ (интерфейс)
+# ОЗВУЧИВАНИЕ НАЗВАНИЯ ТЕХНИКИ
 # ---------------------------------------------------------
 @dp.callback_query_handler(lambda c: c.data.startswith('audio_') and not c.data.startswith('audio_feedback_'))
 async def callback_audio(callback_query: types.CallbackQuery):
@@ -285,9 +288,11 @@ async def callback_audio(callback_query: types.CallbackQuery):
     callback_data = callback_query.data
     now = time.time()
 
-    if user_id in last_voice_message_id:
+    voice_state = load_voice_state()
+    old_msg_id = voice_state.get(str(user_id))
+    if old_msg_id:
         try:
-            await bot.delete_message(user_id, last_voice_message_id[user_id])
+            await bot.delete_message(user_id, int(old_msg_id))
         except Exception:
             pass
 
@@ -307,22 +312,22 @@ async def callback_audio(callback_query: types.CallbackQuery):
             tech.audio_path,
             caption=f"Произношение: {tech.name_ja}"
         )
-        last_voice_message_id[user_id] = msg.message_id
+        voice_state[str(user_id)] = msg.message_id
+        save_voice_state(voice_state)
     else:
         await callback_query.message.reply("Аудио пока не добавлено")
 
-# ---------------------------------------------------------
-# ОЗВУЧИВАНИЕ НАЗВАНИЯ ТЕХНИКИ ПОСЛЕ ОТВЕТА В ТЕСТЕ
-# ---------------------------------------------------------
 @dp.callback_query_handler(lambda c: c.data.startswith('audio_feedback_'))
 async def callback_audio_feedback(callback_query: types.CallbackQuery):
     user_id = callback_query.from_user.id
     callback_data = callback_query.data
     now = time.time()
 
-    if user_id in last_voice_message_id:
+    voice_state = load_voice_state()
+    old_msg_id = voice_state.get(str(user_id))
+    if old_msg_id:
         try:
-            await bot.delete_message(user_id, last_voice_message_id[user_id])
+            await bot.delete_message(user_id, int(old_msg_id))
         except Exception:
             pass
 
@@ -342,7 +347,8 @@ async def callback_audio_feedback(callback_query: types.CallbackQuery):
             tech.audio_path,
             caption=f"Произношение: {tech.name_ja}"
         )
-        last_voice_message_id[user_id] = msg.message_id
+        voice_state[str(user_id)] = msg.message_id
+        save_voice_state(voice_state)
     else:
         await callback_query.message.reply("Аудио пока не добавлено")
 
@@ -438,7 +444,7 @@ async def callback_test_answer(callback_query: types.CallbackQuery):
             reply_markup=kb
         )
     except Exception as e:
-        print(f"Ошибка редактирования сообщения: {e}")
+        logging.error(f"Ошибка редактирования сообщения: {e}")
         await bot.send_message(user_id, feedback, reply_markup=kb)
 
     update_progress(user_id, correct_id, chosen_id == correct_id)
@@ -522,8 +528,6 @@ async def callback_recommend(callback_query: types.CallbackQuery):
 @dp.message_handler()
 async def handle_text(message: types.Message):
     raw_text = message.text.lower().strip()
-    print(f"DEBUG: пользователь ввёл текст: '{raw_text}'")
-
     def normalize(s: str) -> str:
         s = re.sub(r'[^\w\s]', '', s)
         return s.replace(' ', '').lower()
@@ -542,22 +546,12 @@ async def handle_text(message: types.Message):
     )
 
     if tech:
-        print(f"DEBUG: НАЙДЕНО! {tech.name_ru} | {tech.name_ja}")
         await message.reply_animation(
             tech.gif_path,
             caption=f'{tech.name_ja} ({tech.name_ru})\n{tech.description}',
             reply_markup=technique_keyboard(tech.id)
         )
-        category = tech.category
-        category_title = category_map_to_name(category)
-        techniques = get_techniques_by_category(category)
-        await bot.send_message(
-            message.chat.id,
-            f"Выберите технику из раздела «{category_title}»:",
-            reply_markup=techniques_menu(category, techniques)
-        )
     else:
-        print("DEBUG: НИЧЕГО НЕ НАЙДЕНО")
         await message.reply(
             'Я не понял запрос. Пожалуйста, воспользуйтесь меню.',
             reply_markup=main_menu()
@@ -581,9 +575,9 @@ async def on_startup(dp):
     await set_commands(bot)
     session = Session()
     tech_count = session.query(Technique).count()
-    print(f"=== DATABASE CHECK: {tech_count} techniques found ===")
+    logging.info(f"=== DATABASE CHECK: {tech_count} techniques found ===")
     session.close()
-    print("Вебхук сброшен, ожидающие обновления удалены, команды меню установлены")
+    logging.info("Вебхук сброшен, ожидающие обновления удалены, команды меню установлены")
 
 if __name__ == '__main__':
     executor.start_polling(dp, on_startup=on_startup, skip_updates=True, timeout=60)
