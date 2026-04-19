@@ -37,8 +37,8 @@ def technique_keyboard(tech_id):
     """Клавиатура для одной техники: видео, аудио, назад в список"""
     kb = InlineKeyboardMarkup(row_width=2)
     kb.add(
-        InlineKeyboardButton('Смотреть видео', callback_data=f'video_{tech_id}'),
-        InlineKeyboardButton('🔊 Озвучить', callback_data=f'audio_{tech_id}')
+        InlineKeyboardButton('🔊 Озвучить', callback_data=f'audio_{tech_id}'),
+        InlineKeyboardButton('Смотреть видео', callback_data=f'video_{tech_id}')
     )
     kb.add(InlineKeyboardButton('⬅️ Назад в список', callback_data=f'back_to_list_{tech_id}'))
     return kb

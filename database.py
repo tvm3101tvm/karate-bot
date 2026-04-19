@@ -14,11 +14,11 @@ class Technique(Base):
     id = Column(Integer, primary_key=True)
     name_ru = Column(String(100))
     name_ja = Column(String(100))
-    category = Column(String(50))   # stance, block, punch, kick, kihon, kata
+    category = Column(String(50))   
     description = Column(Text, default='')
-    video_path = Column(String(200))   # file_id видео
-    gif_path = Column(String(200))     # file_id GIF
-    audio_path = Column(String(200), default='')   # file_id аудио/голосового сообщения
+    video_path = Column(String(200))   
+    gif_path = Column(String(200))     
+    audio_path = Column(String(200), default='')  
 
 class UserProgress(Base):
     __tablename__ = 'user_progress'
